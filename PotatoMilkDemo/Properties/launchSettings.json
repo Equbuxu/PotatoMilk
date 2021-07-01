@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PotatoMilkDemo": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\egor0\\source\\repos\\PotatoMilk\\PotatoMilkDemo\\workdir"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoMilk", "PotatoMilk\PotatoMilk.csproj", "{88732285-CB5F-4912-9D4F-39EE0A11CE45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotatoMilkDemo", "PotatoMilkDemo\PotatoMilkDemo.csproj", "{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88732285-CB5F-4912-9D4F-39EE0A11CE45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88732285-CB5F-4912-9D4F-39EE0A11CE45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88732285-CB5F-4912-9D4F-39EE0A11CE45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88732285-CB5F-4912-9D4F-39EE0A11CE45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2D95C3F-8876-4BCE-9544-1860A49219CB}
+	EndGlobalSection
+EndGlobal
