@@ -1,4 +1,5 @@
 ﻿using PotatoMilk.Components;
+using PotatoMilk.Helpers;
 using SFML.System;
 using System;
 
@@ -45,7 +46,7 @@ namespace PotatoMilk
             {
                 Vector2f testPos = (back + front) / 2;
                 collider.Offset = testPos;
-                if (CollisionManager.CheckPairCollision(collider, Other))
+                if (CollisionHelper.CheckPairCollision(collider, Other))
                     front = testPos;
                 else
                     back = testPos;

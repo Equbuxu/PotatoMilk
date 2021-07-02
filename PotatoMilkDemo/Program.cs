@@ -1,5 +1,7 @@
 ﻿using PotatoMilk;
 using PotatoMilk.Components;
+using PotatoMilk.ConsumerInterfaces;
+using PotatoMilk.Helpers;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -271,9 +273,32 @@ namespace PotatoMilkDemo
 
     }
 
-    class Wall : GameObject
+    class Wall : GameObject, IMouseButtonConsumer, IMouseMoveConsumer
     {
         public Transform transform;
+        public bool mouseHeld = false;
+
+        private PolygonCollider collider;
+        private Vector2f prevPos;
+
+        public void MouseButtonPressed(object sender, MouseButtonEventArgs args)
+        {
+            if (CollisionHelper.IsPointInside(collider, new Vector2f(args.X, args.Y)))
+                mouseHeld = true;
+        }
+
+        public void MouseButtonReleased(object sender, MouseButtonEventArgs args)
+        {
+            mouseHeld = false;
+        }
+
+        public void MouseMoved(object sender, MouseMoveEventArgs e)
+        {
+            if (mouseHeld)
+                transform.Pos = new(transform.Pos.X + e.X - prevPos.X, transform.Pos.Y + e.Y - prevPos.Y);
+            prevPos = new Vector2f(e.X, e.Y);
+        }
+
         public override void Start()
         {
             transform = AddComponent<Transform>();
@@ -282,7 +307,7 @@ namespace PotatoMilkDemo
             renderer.Size = new(32f, 32f);
             renderer.TextureSize = new(32f, 32f);
             renderer.TextureTopLeft = new(32f, 0f);
-            var collider = AddComponent<PolygonCollider>();
+            collider = AddComponent<PolygonCollider>();
             collider.Vertices = new() { new(0, 0), new(32, 0), new(32, 32), new(0, 32) };
 
             collider.CollisionEnter += (a, b) =>

@@ -1,4 +1,4 @@
-﻿namespace PotatoMilk
+﻿namespace PotatoMilk.ConsumerInterfaces
 {
     public interface IUpdatable
     {

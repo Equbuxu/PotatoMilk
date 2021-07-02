@@ -1,4 +1,5 @@
 ﻿using PotatoMilk.Components;
+using PotatoMilk.Helpers;
 using System.Collections.Generic;
 
 namespace PotatoMilk
@@ -16,7 +17,7 @@ namespace PotatoMilk
                 var b = colliders[j];
                 if (a == b)
                     continue;
-                if (CheckPairCollision(a, b))
+                if (CollisionHelper.CheckPairCollision(a, b))
                     return true;
             }
             return false;
@@ -54,7 +55,7 @@ namespace PotatoMilk
                     var a = colliders[i];
                     var b = colliders[j];
                     var pair = (a, b);
-                    bool colliding = CheckPairCollision(a, b);
+                    bool colliding = CollisionHelper.CheckPairCollision(a, b);
                     if (activeCollisionPairs.Contains(pair))
                     {
                         if (colliding)
@@ -78,46 +79,6 @@ namespace PotatoMilk
                 }
             }
             RemoveDetachedCollisions();
-        }
-
-        internal static bool CheckPairCollision(ICollider a, ICollider b)
-        {
-            var direction = b.Pos - a.Pos;
-            var firstVertex = a.GetSupportPoint(direction) - b.GetSupportPoint(direction * -1);
-            var secondVertex = a.GetSupportPoint(direction * -1) - b.GetSupportPoint(direction);
-            var perp = (secondVertex - firstVertex).Perp(-firstVertex);
-            var toCenterVertex = a.GetSupportPoint(perp) - b.GetSupportPoint(perp * -1);
-
-            while (true)
-            {
-                var perp1 = (toCenterVertex - secondVertex).Perp(secondVertex - firstVertex);
-                var perp2 = (toCenterVertex - firstVertex).Perp(firstVertex - secondVertex);
-
-                bool inside1 = perp1.Dot(-secondVertex) < 0;
-                bool inside2 = perp2.Dot(-firstVertex) < 0;
-
-                if (inside1 && inside2)
-                {
-                    return true;
-                }
-
-                if (!inside1)
-                {
-                    firstVertex = toCenterVertex;
-                    toCenterVertex = a.GetSupportPoint(perp1) - b.GetSupportPoint(perp1 * -1);
-
-                    if (toCenterVertex.Dot(perp1) <= 0)
-                        return false;
-                }
-                else
-                {
-                    secondVertex = toCenterVertex;
-                    toCenterVertex = a.GetSupportPoint(perp2) - b.GetSupportPoint(perp2 * -1);
-
-                    if (toCenterVertex.Dot(perp2) <= 0)
-                        return false;
-                }
-            }
         }
 
         private void RemoveDetachedCollisions()

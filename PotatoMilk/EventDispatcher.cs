@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using PotatoMilk.ConsumerInterfaces;
+using SFML.Graphics;
 
 namespace PotatoMilk
 {
@@ -23,6 +24,10 @@ namespace PotatoMilk
                 window.MouseButtonPressed += mb.MouseButtonPressed;
                 window.MouseButtonReleased += mb.MouseButtonReleased;
             }
+            if (obj is IMouseMoveConsumer mm)
+            {
+                window.MouseMoved += mm.MouseMoved;
+            }
         }
 
         public void UntrackGameObject(GameObject obj)
@@ -37,6 +42,10 @@ namespace PotatoMilk
             {
                 window.MouseButtonPressed -= mb.MouseButtonPressed;
                 window.MouseButtonReleased -= mb.MouseButtonReleased;
+            }
+            if (obj is IMouseMoveConsumer mm)
+            {
+                window.MouseMoved -= mm.MouseMoved;
             }
         }
     }
