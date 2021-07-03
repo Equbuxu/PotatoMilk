@@ -1,5 +1,6 @@
 ﻿using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
+using PotatoMilk.ManagerComponents;
 using SFML.Graphics;
 using System.Collections.Generic;
 

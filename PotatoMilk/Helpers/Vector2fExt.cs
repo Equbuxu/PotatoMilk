@@ -1,9 +1,9 @@
 ﻿using SFML.System;
 using System;
 
-namespace PotatoMilk
+namespace PotatoMilk.Helpers
 {
-    static class Vector2fExt
+    public static class Vector2fExt
     {
         public static float Dot(this Vector2f vector, Vector2f other)
         {

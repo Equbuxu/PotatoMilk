@@ -3,9 +3,9 @@ using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
 
-namespace PotatoMilk
+namespace PotatoMilk.ManagerComponents
 {
-    class QuadBatch
+    internal class QuadBatch
     {
         private Stack<uint> freePositions = new();
         private readonly Vertex emptyVertex = new(new Vector2f(0, 0), Color.Transparent);

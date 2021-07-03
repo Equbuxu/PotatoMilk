@@ -2,7 +2,7 @@
 using PotatoMilk.Helpers;
 using System.Collections.Generic;
 
-namespace PotatoMilk
+namespace PotatoMilk.ManagerComponents
 {
     public class CollisionManager
     {

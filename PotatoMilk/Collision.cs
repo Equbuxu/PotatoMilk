@@ -18,9 +18,9 @@ namespace PotatoMilk
 
             public Vector2f Pos => decorated.Pos + Offset;
 
-            public event EventHandler<Collision> CollisionEnter;
             public event EventHandler<Collision> CollisionStay;
             public event EventHandler<Collision> CollisionExit;
+            public event EventHandler<Collision> CollisionEnter;
 
             public Vector2f GetSupportPoint(Vector2f direction) => decorated.GetSupportPoint(direction) + Offset;
             public void InvokeCollisionEnter(Collision collision) { }

@@ -1,7 +1,7 @@
 ﻿using PotatoMilk.ConsumerInterfaces;
 using SFML.Graphics;
 
-namespace PotatoMilk
+namespace PotatoMilk.ManagerComponents
 {
     internal class EventDispatcher
     {

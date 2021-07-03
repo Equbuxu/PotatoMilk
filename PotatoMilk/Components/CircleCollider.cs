@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using PotatoMilk.Helpers;
+using SFML.System;
 using System;
 
 namespace PotatoMilk.Components

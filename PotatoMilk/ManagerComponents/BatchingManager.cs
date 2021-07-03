@@ -3,7 +3,7 @@ using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace PotatoMilk
+namespace PotatoMilk.ManagerComponents
 {
     class BatchingManager
     {
