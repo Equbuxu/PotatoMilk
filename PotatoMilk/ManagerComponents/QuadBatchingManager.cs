@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.ManagerComponents
 {
-    class BatchingManager
+    class QuadBatchingManager
     {
         Dictionary<Texture, QuadBatch> quadBatches = new();
         Dictionary<QuadRenderer, QuadBatch> containingBatches = new();
+
         public void TrackComponent(IComponent component)
         {
             if (component is QuadRenderer rend)

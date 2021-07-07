@@ -139,6 +139,49 @@ namespace PotatoMilkDemo
 
     }
 
+    class Mesh : GameObject, IKeyboardConsumer
+    {
+        private PolygonRenderer rend;
+        private Transform transform;
+        public void KeyPressed(object sender, KeyEventArgs args)
+        {
+
+        }
+
+        public void KeyReleased(object sender, KeyEventArgs args)
+        {
+            if (args.Code == Keyboard.Key.Numpad0)
+                rend.Color = Color.Green;
+            else if (args.Code == Keyboard.Key.Numpad1)
+                transform.Pos = transform.Pos + new Vector2f(10f, 10f);
+            else if (args.Code == Keyboard.Key.Numpad2)
+                Manager.Destroy(this);
+            else if (args.Code == Keyboard.Key.Numpad3)
+                Manager.Instantiate<Mesh>();
+        }
+
+        public override void Start()
+        {
+            transform = AddComponent<Transform>();
+            rend = AddComponent<PolygonRenderer>();
+            rend.Color = Color.Blue;
+            rend.Vertices = new List<Vector2f>()
+            {
+                new (0,0),
+                new (10,10),
+                new (20,0),
+                new (30,20),
+                new (20,40),
+                new (0, 30),
+            };
+        }
+
+        public void TextEntered(object sender, TextEventArgs args)
+        {
+
+        }
+    }
+
     class Player : GameObject, IKeyboardConsumer, IUpdatable
     {
         private bool up = false;
@@ -360,6 +403,7 @@ namespace PotatoMilkDemo
             manager.Instantiate<BlueTriangle>();
             manager.Instantiate<GreenTriangle>();
             manager.Instantiate<Player>();
+            manager.Instantiate<Mesh>();
 
             Image map = new("map.png");
             for (uint i = 0; i < map.Size.X; i++)

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.ManagerComponents
 {
-    internal class QuadBatch
+    internal class QuadBatch : IBatch<QuadRenderer>
     {
         private Stack<uint> freePositions = new();
         private readonly Vertex emptyVertex = new(new Vector2f(0, 0), Color.Transparent);

@@ -8,7 +8,8 @@ namespace PotatoMilk
 {
     public class ObjectManager
     {
-        private BatchingManager batchingManager = new();
+        private QuadBatchingManager quadBatchingManager = new();
+        private PolygonBatchingManager polygonBatchingManager = new();
         public CollisionManager Collisions { get; private set; } = new();
 
         private HashSet<IUpdatable> updatables = new();
@@ -32,7 +33,8 @@ namespace PotatoMilk
 
         public void TrackComponent(IComponent component)
         {
-            batchingManager.TrackComponent(component);
+            quadBatchingManager.TrackComponent(component);
+            polygonBatchingManager.TrackComponent(component);
             Collisions.TrackComponent(component);
         }
         public void Destroy(GameObject obj)
@@ -61,7 +63,8 @@ namespace PotatoMilk
             {
                 foreach (var cmp in obj.Components)
                 {
-                    batchingManager.UntrackComponent(cmp);
+                    quadBatchingManager.UntrackComponent(cmp);
+                    polygonBatchingManager.UntrackComponent(cmp);
                     Collisions.UntrackComponent(cmp);
                 }
 
@@ -80,7 +83,8 @@ namespace PotatoMilk
             Collisions.CalculateCollisions();
             InstantianteQueued();
             DestroyQueued();
-            batchingManager.Draw(window);
+            quadBatchingManager.Draw(window);
+            polygonBatchingManager.Draw(window);
         }
     }
 }

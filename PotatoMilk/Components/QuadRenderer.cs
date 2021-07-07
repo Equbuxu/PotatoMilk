@@ -78,7 +78,7 @@ namespace PotatoMilk.Components
             }
             catch (Exception e)
             {
-                throw new Exception("QuadRenderer depends on Transform", e);
+                throw new Exception($"{nameof(QuadRenderer)} depends on Transform", e);
             }
             GameObject = parent;
             transform.StateUpdated += (sender, args) =>
