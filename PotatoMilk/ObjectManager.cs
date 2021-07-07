@@ -14,6 +14,7 @@ namespace PotatoMilk
         private HashSet<IUpdatable> updatables = new();
         private EventDispatcher eventDispatcher;
         private HashSet<GameObject> toDestroy = new();
+        private HashSet<GameObject> toInstantiate = new();
 
         public ObjectManager(RenderWindow window)
         {
@@ -25,13 +26,7 @@ namespace PotatoMilk
         {
             T obj = new();
             obj.Manager = this;
-
-            eventDispatcher.TrackGameObject(obj);
-
-            if (obj is IUpdatable upd)
-                updatables.Add(upd);
-
-            obj.Start();
+            toInstantiate.Add(obj);
             return obj;
         }
 
@@ -44,6 +39,20 @@ namespace PotatoMilk
         {
             if (!toDestroy.Contains(obj))
                 toDestroy.Add(obj);
+        }
+
+        private void InstantianteQueued()
+        {
+            foreach (var obj in toInstantiate)
+            {
+                eventDispatcher.TrackGameObject(obj);
+
+                if (obj is IUpdatable upd)
+                    updatables.Add(upd);
+
+                obj.Start();
+            }
+            toInstantiate.Clear();
         }
 
         private void DestroyQueued()
@@ -69,6 +78,7 @@ namespace PotatoMilk
             foreach (var upd in updatables)
                 upd.Update();
             Collisions.CalculateCollisions();
+            InstantianteQueued();
             DestroyQueued();
             batchingManager.Draw(window);
         }

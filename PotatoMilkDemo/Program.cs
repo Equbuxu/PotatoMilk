@@ -275,9 +275,10 @@ namespace PotatoMilkDemo
 
     class Wall : GameObject, IMouseButtonConsumer, IMouseMoveConsumer
     {
-        public Transform transform;
+        public Vector2f startPos;
         public bool mouseHeld = false;
 
+        private Transform transform;
         private PolygonCollider collider;
         private Vector2f prevPos;
 
@@ -302,6 +303,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = AddComponent<Transform>();
+            transform.Pos = startPos;
             var renderer = AddComponent<QuadRenderer>();
             renderer.Texture = Storage.texture2;
             renderer.Size = new(32f, 32f);
@@ -367,7 +369,7 @@ namespace PotatoMilkDemo
                     if (map.GetPixel(i, j) != Color.Black)
                     {
                         var wall = manager.Instantiate<Wall>();
-                        wall.transform.Pos = new Vector2f(i * 32f, j * 32f);
+                        wall.startPos = new Vector2f(i * 32f, j * 32f);
                     }
                 }
             }
