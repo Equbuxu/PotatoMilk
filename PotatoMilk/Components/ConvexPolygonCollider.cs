@@ -77,8 +77,16 @@ namespace PotatoMilk.Components
             {
                 transformedVertices[i] = vertices[i] + transform.Pos;
             }
+            for (int i = 0; i < transformedVertices.Count; i++)
+            {
+                Vector2f cur = transformedVertices[i];
+                Vector2f prev = transformedVertices[i == 0 ? ^1 : i - 1];
+                Vector2f next = transformedVertices[(i + 1) % transformedVertices.Count];
+                var fromPrev = (cur - prev);
+                if (new Vector2f(-fromPrev.Y, fromPrev.X).Dot(cur - next) > 0)
+                    throw new Exception("Polygon is either not convex or is not laid out in CW direction (assuming Y points downwards)");
+            }
         }
-
 
     }
 }

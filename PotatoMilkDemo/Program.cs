@@ -105,7 +105,7 @@ namespace PotatoMilkDemo
             renderer.TextureSize = new Vector2f(32f, 32f);
             renderer.Size = new Vector2f(32f, 32f);
             var collider = AddComponent<ConvexPolygonCollider>();
-            collider.Vertices = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(0f, 32f), new Vector2f(32f, 32f) };
+            collider.Vertices = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(32f, 32f), new Vector2f(0f, 32f) };
 
             collider.CollisionEnter += OnCollision;
             collider.CollisionExit += OnCollisionExit;
@@ -377,7 +377,7 @@ namespace PotatoMilkDemo
             renderer.TextureSize = new Vector2f(32f, 32f);
             renderer.Size = new Vector2f(32f, 32f);
             var collider = AddComponent<ConvexPolygonCollider>();
-            collider.Vertices = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(0f, 32f), new Vector2f(32f, 0f) };
+            collider.Vertices = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(32f, 0f), new Vector2f(0f, 32f) };
 
             collider.CollisionEnter += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 64f);
             collider.CollisionExit += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 32f);
