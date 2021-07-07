@@ -3,6 +3,7 @@ using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PotatoMilk.Components
 {
@@ -12,14 +13,14 @@ namespace PotatoMilk.Components
         public event EventHandler StateUpdated;
 
         private Transform transform;
-        private List<Vector2f> vertices;
+        private List<Vector2f> vertices = new();
         public List<Vector2f> Vertices
         {
             set
             {
-                if (value.Count < 1)
-                    throw new Exception("A PolygonCollider must have at least one point");
-                vertices = value;
+                if (value == null)
+                    throw new Exception("Value was null");
+                vertices = value.Select(a => a).ToList();
                 TriangulateVertices(null, EventArgs.Empty);
             }
         }

@@ -20,9 +20,11 @@ namespace PotatoMilk.Components
         {
             set
             {
+                if (value == null)
+                    throw new Exception("Value was null");
                 if (value.Count < 1)
-                    throw new Exception("A PolygonCollider must have at least one point");
-                vertices = value;
+                    throw new Exception($"A {nameof(ConvexPolygonCollider)} must have at least one point");
+                vertices = value.Select(a => a).ToList(); ;
                 RecalculateVertices(null, EventArgs.Empty);
             }
         }
