@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PotatoMilk.Components
 {
-    public class PolygonCollider : IComponent, ICollider
+    public class ConvexPolygonCollider : IComponent, ICollider
     {
         private Transform transform;
         private List<Vector2f> transformedVertices = new();
@@ -40,7 +40,7 @@ namespace PotatoMilk.Components
             }
             catch (Exception e)
             {
-                throw new Exception(nameof(PolygonCollider) + " depends on Transform", e);
+                throw new Exception(nameof(ConvexPolygonCollider) + " depends on Transform", e);
             }
             GameObject = parent;
             transform.StateUpdated += RecalculateVertices;

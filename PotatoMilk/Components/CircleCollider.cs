@@ -31,7 +31,7 @@ namespace PotatoMilk.Components
             }
             catch (Exception e)
             {
-                throw new Exception(nameof(PolygonCollider) + " depends on Transform", e);
+                throw new Exception(nameof(ConvexPolygonCollider) + " depends on Transform", e);
             }
             GameObject = parent;
         }
