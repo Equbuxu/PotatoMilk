@@ -22,6 +22,7 @@ namespace PotatoMilk
         private Dictionary<string, IComponent> namedComponents = new();
         private List<IComponent> components = new();
         public IReadOnlyList<IComponent> Components => components.AsReadOnly();
+        public bool Persistent { get; set; }
         public virtual void Start() { }
         public T AddComponent<T>()
             where T : IComponent, new()

@@ -12,6 +12,7 @@ namespace PotatoMilk
         private PolygonBatchingManager polygonBatchingManager = new();
         public CollisionManager Collisions { get; private set; } = new();
 
+        private HashSet<GameObject> allObjects = new();
         private HashSet<IUpdatable> updatables = new();
         private EventDispatcher eventDispatcher;
         private HashSet<GameObject> toDestroy = new();
@@ -43,6 +44,16 @@ namespace PotatoMilk
                 toDestroy.Add(obj);
         }
 
+        public void ClearRoom()
+        {
+            foreach (var obj in allObjects)
+            {
+                if (obj.Persistent)
+                    continue;
+                Destroy(obj);
+            }
+        }
+
         private void InstantianteQueued()
         {
             foreach (var obj in toInstantiate)
@@ -51,7 +62,7 @@ namespace PotatoMilk
 
                 if (obj is IUpdatable upd)
                     updatables.Add(upd);
-
+                allObjects.Add(obj);
                 obj.Start();
             }
             toInstantiate.Clear();
@@ -69,7 +80,7 @@ namespace PotatoMilk
                 }
 
                 eventDispatcher.UntrackGameObject(obj);
-
+                allObjects.Remove(obj);
                 if (obj is IUpdatable upd)
                     updatables.Remove(upd);
             }
