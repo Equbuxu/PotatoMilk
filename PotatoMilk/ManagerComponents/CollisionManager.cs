@@ -17,7 +17,7 @@ namespace PotatoMilk.ManagerComponents
                 var b = colliders[j];
                 if (a == b)
                     continue;
-                if (CollisionHelper.CheckPairCollision(a, b))
+                if (CollisionHelper.CheckPairCollision(a, b).HasValue)
                     return true;
             }
             return false;
@@ -55,13 +55,13 @@ namespace PotatoMilk.ManagerComponents
                     var a = colliders[i];
                     var b = colliders[j];
                     var pair = (a, b);
-                    bool colliding = CollisionHelper.CheckPairCollision(a, b);
+                    var gjkTriangle = CollisionHelper.CheckPairCollision(a, b);
                     if (activeCollisionPairs.Contains(pair))
                     {
-                        if (colliding)
+                        if (gjkTriangle.HasValue)
                         {
-                            a.InvokeCollisionStay(new Collision(b, a));
-                            b.InvokeCollisionStay(new Collision(a, b));
+                            a.InvokeCollisionStay(new Collision(b, a, true, gjkTriangle.Value));
+                            b.InvokeCollisionStay(new Collision(a, b, false, gjkTriangle.Value));
                         }
                         else
                         {
@@ -70,10 +70,10 @@ namespace PotatoMilk.ManagerComponents
                             activeCollisionPairs.Remove(pair);
                         }
                     }
-                    else if (colliding)
+                    else if (gjkTriangle.HasValue)
                     {
-                        a.InvokeCollisionEnter(new Collision(b, a));
-                        b.InvokeCollisionEnter(new Collision(a, b));
+                        a.InvokeCollisionEnter(new Collision(b, a, true, gjkTriangle.Value));
+                        b.InvokeCollisionEnter(new Collision(a, b, false, gjkTriangle.Value));
                         activeCollisionPairs.Add(pair);
                     }
                 }

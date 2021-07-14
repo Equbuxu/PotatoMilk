@@ -3,7 +3,6 @@ using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
 using SFML.System;
 using SFML.Window;
-using System;
 using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
@@ -36,6 +35,8 @@ namespace PotatoMilkDemo
 
         private void OnCollision(object sender, Collision e)
         {
+            transform.Pos += e.CalculatePushOutVector();
+            /*
             Vector2f newPos = transform.Pos;
             transform.Pos = prevPos;
 
@@ -62,7 +63,7 @@ namespace PotatoMilkDemo
                     transform.Pos -= new Vector2f(0, dirY);
                     break;
                 }
-            }
+            }*/
         }
 
         public void Update()

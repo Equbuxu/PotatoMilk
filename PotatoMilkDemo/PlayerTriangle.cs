@@ -8,12 +8,13 @@ using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    class PlayerTriangle : GameObject, IUpdatable
+    class PlayerTriangle : GameObject, IMouseMoveConsumer, IUpdatable
     {
         private Transform transform;
         private QuadRenderer renderer;
         private CollisionCounter ctr;
         private Vector2f prevPos;
+        private Vector2f mousePos;
         private bool colliding = false;
         public override void Start()
         {
@@ -30,7 +31,7 @@ namespace PotatoMilkDemo
             collider.CollisionEnter += OnCollision;
             collider.CollisionExit += OnCollisionExit;
 
-            ctr = new CollisionCounter(collider, "BlueTriangle");
+            ctr = new CollisionCounter(collider, nameof(PlayerTriangle));
         }
 
         private void OnCollisionExit(object sender, Collision e)
@@ -46,6 +47,11 @@ namespace PotatoMilkDemo
             colliding = true;
         }
 
+        public void MouseMoved(object sender, MouseMoveEventArgs e)
+        {
+            mousePos = new Vector2f(e.X, e.Y);
+        }
+
         public void Update()
         {
             prevPos = transform.Pos;
@@ -53,9 +59,8 @@ namespace PotatoMilkDemo
                 return;
             if (Mouse.IsButtonPressed(Mouse.Button.Right))
             {
-                transform.Pos += ((Vector2f)Mouse.GetPosition() - transform.Pos) * 0.1f;
+                transform.Pos += (mousePos - transform.Pos) * 0.1f;
             }
         }
-
     }
 }

@@ -45,7 +45,7 @@ namespace PotatoMilk.Helpers
             }
         }
 
-        internal static bool CheckPairCollision(ICollider a, ICollider b)
+        internal static (Vector2f, Vector2f, Vector2f)? CheckPairCollision(ICollider a, ICollider b)
         {
             var direction = b.Pos - a.Pos;
             var firstVertex = a.GetSupportPoint(direction) - b.GetSupportPoint(direction * -1);
@@ -62,7 +62,7 @@ namespace PotatoMilk.Helpers
                 bool inside2 = perp2.Dot(-firstVertex) < 0;
 
                 if (inside1 && inside2)
-                    return true;
+                    return (firstVertex, secondVertex, toCenterVertex);
 
                 if (!inside1)
                 {
@@ -70,7 +70,7 @@ namespace PotatoMilk.Helpers
                     toCenterVertex = a.GetSupportPoint(perp1) - b.GetSupportPoint(perp1 * -1);
 
                     if (toCenterVertex.Dot(perp1) <= 0)
-                        return false;
+                        return null;
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace PotatoMilk.Helpers
                     toCenterVertex = a.GetSupportPoint(perp2) - b.GetSupportPoint(perp2 * -1);
 
                     if (toCenterVertex.Dot(perp2) <= 0)
-                        return false;
+                        return null;
                 }
             }
         }
