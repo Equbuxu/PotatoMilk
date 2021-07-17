@@ -6,7 +6,7 @@ using SFML.Window;
 
 namespace PotatoMilkDemo
 {
-    [ObjectName("player_triangle")]
+    [ComponentName("player_triangle_beh")]
     class PlayerTriangle : ObjectBehavior, IMouseMoveConsumer, IUpdatable
     {
         private Transform transform;

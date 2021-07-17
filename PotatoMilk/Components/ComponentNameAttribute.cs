@@ -3,11 +3,11 @@
 namespace PotatoMilk.Components
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class ObjectNameAttribute : System.Attribute
+    public class ComponentNameAttribute : System.Attribute
     {
         private string name;
 
-        public ObjectNameAttribute(string name)
+        public ComponentNameAttribute(string name)
         {
             this.name = name;
         }

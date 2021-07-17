@@ -5,7 +5,7 @@ using System;
 
 namespace PotatoMilkDemo
 {
-    [ObjectName("wall_circle")]
+    [ComponentName("wall_circle_beh")]
     class WallCircle : ObjectBehavior, IUpdatable
     {
         private Transform transform;

@@ -6,7 +6,7 @@ using SFML.Window;
 
 namespace PotatoMilkDemo
 {
-    [ObjectName("wall_square")]
+    [ComponentName("wall_square_beh")]
     class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer
     {
         public Vector2f startPos;
@@ -42,8 +42,7 @@ namespace PotatoMilkDemo
 
             collider.CollisionEnter += (a, b) =>
             {
-                var otherObj = (b.Other as IComponent).GameObject;
-                if (otherObj.HasComponent(nameof(PlayerTriangle)))
+                if ((b.Other as IComponent).GameObject.Name == "player_triangle")
                     GameObject.Manager.Destroy(GameObject);
             };
         }

@@ -19,6 +19,7 @@ namespace PotatoMilkDemo
                 "player_square",
                 new ObjectRecipe()
                 {
+                    name = "player_square",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new()
@@ -35,7 +36,7 @@ namespace PotatoMilkDemo
                         {
                             ["vertices"] = new List<Vector2f>() { new(), new(16f, 0f), new(16f, 16f), new(0f, 16f) },
                         },
-                        ["player_square"] = new()
+                        ["player_square_beh"] = new()
                         {
                             ["test"] = "passed",
                         },
@@ -46,6 +47,7 @@ namespace PotatoMilkDemo
                 "player_triangle",
                 new ObjectRecipe()
                 {
+                    name = "player_triangle",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new()
@@ -63,7 +65,7 @@ namespace PotatoMilkDemo
                         {
                             ["vertices"] = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(32f, 32f), new Vector2f(0f, 32f) },
                         },
-                        ["player_triangle"] = new(),
+                        ["player_triangle_beh"] = new(),
                     }
                 }
             );
@@ -71,6 +73,7 @@ namespace PotatoMilkDemo
                 "polygon",
                 new ObjectRecipe()
                 {
+                    name = "polygon",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new()
@@ -107,6 +110,7 @@ namespace PotatoMilkDemo
                 "wall_circle",
                 new ObjectRecipe()
                 {
+                    name = "wall_circle",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new()
@@ -124,7 +128,7 @@ namespace PotatoMilkDemo
                         {
                             ["radius"] = 16f,
                         },
-                        ["wall_circle"] = new(),
+                        ["wall_circle_beh"] = new(),
                     }
                 }
             );
@@ -132,6 +136,7 @@ namespace PotatoMilkDemo
                 "wall_triangle",
                 new ObjectRecipe()
                 {
+                    name = "wall_triangle",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new(),
@@ -146,7 +151,7 @@ namespace PotatoMilkDemo
                         {
                             ["vertices"] = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(32f, 0f), new Vector2f(0f, 32f) },
                         },
-                        ["wall_triangle"] = new(),
+                        ["wall_triangle_beh"] = new(),
                     }
                 }
             );
@@ -154,6 +159,7 @@ namespace PotatoMilkDemo
                 "wall_square",
                 new ObjectRecipe()
                 {
+                    name = "wall_square",
                     componentData = new Dictionary<string, Dictionary<string, object>>()
                     {
                         ["transform"] = new(),
@@ -168,7 +174,7 @@ namespace PotatoMilkDemo
                         {
                             ["vertices"] = new List<Vector2f>() { new(0, 0), new(32, 0), new(32, 32), new(0, 32) },
                         },
-                        ["wall_square"] = new(),
+                        ["wall_square_beh"] = new(),
                     }
                 }
             );

@@ -19,6 +19,8 @@ namespace PotatoMilk.Components
         {
             GameObject obj = new();
             obj.Manager = manager;
+            obj.Persistent = recipe.persistent;
+            obj.Name = recipe.name;
 
             foreach (var keyvalue in recipe.componentData)
             {
@@ -51,9 +53,9 @@ namespace PotatoMilk.Components
                    from assembly in AppDomain.CurrentDomain.GetAssemblies()
                    from type in assembly.GetTypes()
                    where type.IsSubclassOf(typeof(ObjectBehavior))
-                   let attributes = type.GetCustomAttributes(typeof(ObjectNameAttribute), true)
+                   let attributes = type.GetCustomAttributes(typeof(ComponentNameAttribute), true)
                    where attributes != null && attributes.Length > 0
-                   select (((ObjectNameAttribute)attributes.First()).GetName(), type)).ToDictionary(data => data.Item1, data => data.Item2);
+                   select (((ComponentNameAttribute)attributes.First()).GetName(), type)).ToDictionary(data => data.Item1, data => data.Item2);
         }
     }
 }

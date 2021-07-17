@@ -9,7 +9,7 @@ using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    [ObjectName("player_square")]
+    [ComponentName("player_square_beh")]
     class PlayerSquare : ObjectBehavior, IKeyboardConsumer, IUpdatable
     {
         private bool up = false;

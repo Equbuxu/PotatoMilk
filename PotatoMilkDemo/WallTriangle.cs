@@ -4,7 +4,7 @@ using SFML.System;
 namespace PotatoMilkDemo
 {
 
-    [ObjectName("wall_triangle")]
+    [ComponentName("wall_triangle_beh")]
     class WallTriangle : ObjectBehavior
     {
         private CollisionCounter ctr;
