@@ -1,4 +1,5 @@
-﻿using PotatoMilk.ConsumerInterfaces;
+﻿using PotatoMilk.Components;
+using PotatoMilk.ConsumerInterfaces;
 using SFML.Graphics;
 
 namespace PotatoMilk.ManagerComponents
@@ -11,39 +12,43 @@ namespace PotatoMilk.ManagerComponents
             this.window = window;
         }
 
-        public void TrackGameObject(GameObject obj)
+        public void TrackComponent(IComponent component)
         {
-            if (obj is IKeyboardConsumer keyb)
+            if (component is not ObjectBehavior)
+                return;
+            if (component is IKeyboardConsumer keyb)
             {
                 window.KeyPressed += keyb.KeyPressed;
                 window.KeyReleased += keyb.KeyReleased;
                 window.TextEntered += keyb.TextEntered;
             }
-            if (obj is IMouseButtonConsumer mb)
+            if (component is IMouseButtonConsumer mb)
             {
                 window.MouseButtonPressed += mb.MouseButtonPressed;
                 window.MouseButtonReleased += mb.MouseButtonReleased;
             }
-            if (obj is IMouseMoveConsumer mm)
+            if (component is IMouseMoveConsumer mm)
             {
                 window.MouseMoved += mm.MouseMoved;
             }
         }
 
-        public void UntrackGameObject(GameObject obj)
+        public void UntrackComponent(IComponent component)
         {
-            if (obj is IKeyboardConsumer keyb)
+            if (component is not ObjectBehavior)
+                return;
+            if (component is IKeyboardConsumer keyb)
             {
                 window.KeyPressed -= keyb.KeyPressed;
                 window.KeyReleased -= keyb.KeyReleased;
                 window.TextEntered -= keyb.TextEntered;
             }
-            if (obj is IMouseButtonConsumer mb)
+            if (component is IMouseButtonConsumer mb)
             {
                 window.MouseButtonPressed -= mb.MouseButtonPressed;
                 window.MouseButtonReleased -= mb.MouseButtonReleased;
             }
-            if (obj is IMouseMoveConsumer mm)
+            if (component is IMouseMoveConsumer mm)
             {
                 window.MouseMoved -= mm.MouseMoved;
             }
