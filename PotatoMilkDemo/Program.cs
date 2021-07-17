@@ -26,10 +26,10 @@ namespace PotatoMilkDemo
 
             manager = new(window);
             manager.LoadStorage(texturesZip, texturesJson, objectsJson, roomsJson);
-            manager.Instantiate(Storage.recipies["player_square"]);
-            manager.Instantiate(Storage.recipies["player_triangle"]);
-            manager.Instantiate(Storage.recipies["polygon"]);
-            manager.Instantiate(Storage.recipies["wall_circle"]);
+            manager.Instantiate(Storage.recipes["player_square"]);
+            manager.Instantiate(Storage.recipes["player_triangle"]);
+            manager.Instantiate(Storage.recipes["polygon"]);
+            manager.Instantiate(Storage.recipes["wall_circle"]);
             Image map = new("map.png");
 
             for (uint i = 0; i < map.Size.X; i++)
@@ -39,12 +39,12 @@ namespace PotatoMilkDemo
                     Color c = map.GetPixel(i, j);
                     if (c == Color.White)
                     {
-                        var wall = manager.Instantiate(Storage.recipies["wall_square"]);
+                        var wall = manager.Instantiate(Storage.recipes["wall_square"]);
                         wall.GetComponent<WallSquare>().startPos = new Vector2f(i * 32f, j * 32f);
                     }
                     else if (c == Color.Red)
                     {
-                        var recipe = Storage.recipies["wall_triangle"];
+                        var recipe = Storage.recipes["wall_triangle"];
                         var copy = new ObjectRecipe();
                         foreach (var keyvalue in recipe.componentData)
                         {

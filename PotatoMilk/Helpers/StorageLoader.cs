@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Text.Json;
@@ -33,6 +34,36 @@ namespace PotatoMilk.Helpers
                 }
             }
             return textures;
+        }
+
+        public static Dictionary<string, ObjectRecipe> LoadObjectRecipes(string json, Dictionary<string, Texture> textures)
+        {
+            var parsed = JsonDocument.Parse(json);
+            foreach (var obj in parsed.RootElement.EnumerateObject())
+            {
+                ObjectRecipe recipe = new();
+                recipe.name = obj.Name;
+                foreach (var component in obj.Value.EnumerateObject())
+                {
+                    if (obj.Name == "persistent")
+                    {
+                        recipe.persistent = obj.Value.GetBoolean();
+                        continue;
+                    }
+
+                    foreach (var componentDataPoint in obj.Value.EnumerateObject())
+                    {
+                        var key, value = ParseComponentDataPoint(componentDataPoint);
+                    }
+                    Debug.Write(component.Name);
+                }
+            }
+            return null;
+        }
+
+        private static (string, object) ParseComponentDataPoint()
+        {
+
         }
     }
 }

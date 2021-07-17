@@ -30,6 +30,7 @@ namespace PotatoMilk
         public void LoadStorage(byte[] texturesZip, string texturesJson, string objectsJson, string roomsJson)
         {
             var textures = StorageLoader.LoadTextures(texturesZip, texturesJson);
+            var objects = StorageLoader.LoadObjectRecipes(objectsJson, textures);
         }
 
         public GameObject Instantiate(ObjectRecipe recipe)

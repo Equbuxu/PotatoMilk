@@ -9,13 +9,13 @@ namespace PotatoMilkDemo
     {
         public static Texture texture;
         public static Texture texture2;
-        public static Dictionary<string, ObjectRecipe> recipies;
+        public static Dictionary<string, ObjectRecipe> recipes;
         public static void Load()
         {
             texture = new Texture("textures.png");
             texture2 = new Texture("textures2.png");
-            recipies = new();
-            recipies.Add(
+            recipes = new();
+            recipes.Add(
                 "player_square",
                 new ObjectRecipe()
                 {
@@ -43,7 +43,7 @@ namespace PotatoMilkDemo
                     }
                 }
             );
-            recipies.Add(
+            recipes.Add(
                 "player_triangle",
                 new ObjectRecipe()
                 {
@@ -69,7 +69,7 @@ namespace PotatoMilkDemo
                     }
                 }
             );
-            recipies.Add(
+            recipes.Add(
                 "polygon",
                 new ObjectRecipe()
                 {
@@ -106,7 +106,7 @@ namespace PotatoMilkDemo
                     }
                 }
             );
-            recipies.Add(
+            recipes.Add(
                 "wall_circle",
                 new ObjectRecipe()
                 {
@@ -132,7 +132,7 @@ namespace PotatoMilkDemo
                     }
                 }
             );
-            recipies.Add(
+            recipes.Add(
                 "wall_triangle",
                 new ObjectRecipe()
                 {
@@ -155,7 +155,7 @@ namespace PotatoMilkDemo
                     }
                 }
             );
-            recipies.Add(
+            recipes.Add(
                 "wall_square",
                 new ObjectRecipe()
                 {
