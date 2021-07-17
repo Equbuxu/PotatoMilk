@@ -1,13 +1,16 @@
 ﻿using PotatoMilk;
 using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
+using PotatoMilk.Helpers;
 using SFML.System;
 using SFML.Window;
+using System.Diagnostics;
 using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    class PlayerSquare : GameObject, IKeyboardConsumer, IUpdatable
+    [ObjectName("player_square")]
+    class PlayerSquare : ObjectBehavior, IKeyboardConsumer, IUpdatable
     {
         private bool up = false;
         private bool down = false;
@@ -20,50 +23,17 @@ namespace PotatoMilkDemo
         private Vector2f size = new(16f, 16f);
         public override void Start()
         {
-            transform = AddComponent<Transform>();
-            transform.Position = new(300f, 200f);
-            renderer = AddComponent<QuadRenderer>();
-            renderer.Size = size;
-            renderer.Texture = Storage.texture2;
-            renderer.TextureSize = new(32f, 32f);
-
-            collider = AddComponent<ConvexPolygonCollider>();
-            collider.Vertices = new() { new(), new(size.X, 0), size, new(0, size.Y) };
+            transform = GameObject.GetComponent<Transform>();
+            renderer = GameObject.GetComponent<QuadRenderer>();
+            collider = GameObject.GetComponent<ConvexPolygonCollider>();
             collider.CollisionEnter += OnCollision;
             collider.CollisionStay += OnCollision;
+            Debug.Write(ComponentHelper.TryGetDataValue<string>(data, "test", "failed"));
         }
 
         private void OnCollision(object sender, Collision e)
         {
             transform.Position += e.CalculatePushOutVector();
-            /*
-            Vector2f newPos = transform.Pos;
-            transform.Pos = prevPos;
-
-            int deltaX = (int)Math.Abs(newPos.X - prevPos.X);
-            int deltaY = (int)Math.Abs(newPos.Y - prevPos.Y);
-
-            int dirX = Math.Sign(newPos.X - prevPos.X);
-            int dirY = Math.Sign(newPos.Y - prevPos.Y);
-
-            for (int i = 0; i < deltaX; i++)
-            {
-                transform.Pos += new Vector2f(dirX, 0);
-                if (Manager.Collisions.IsColliding(collider))
-                {
-                    transform.Pos -= new Vector2f(dirX, 0);
-                    break;
-                }
-            }
-            for (int i = 0; i < deltaY; i++)
-            {
-                transform.Pos += new Vector2f(0, dirY);
-                if (Manager.Collisions.IsColliding(collider))
-                {
-                    transform.Pos -= new Vector2f(0, dirY);
-                    break;
-                }
-            }*/
         }
 
         public void Update()

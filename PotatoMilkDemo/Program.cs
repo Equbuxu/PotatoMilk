@@ -2,19 +2,10 @@
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System.Collections.Generic;
 
 namespace PotatoMilkDemo
 {
-    static class Storage
-    {
-        public static Texture texture;
-        public static Texture texture2;
-        public static void Load()
-        {
-            texture = new Texture("textures.png");
-            texture2 = new Texture("textures2.png");
-        }
-    }
 
     class Program
     {
@@ -28,11 +19,10 @@ namespace PotatoMilkDemo
             window.SetVerticalSyncEnabled(true);
 
             manager = new(window);
-            manager.Instantiate<WallCircle>();
-            manager.Instantiate<PlayerTriangle>();
-            manager.Instantiate<PlayerSquare>();
-            manager.Instantiate<Polygon>();
-
+            manager.Instantiate(Storage.recipies["player_square"]);
+            manager.Instantiate(Storage.recipies["player_triangle"]);
+            manager.Instantiate(Storage.recipies["polygon"]);
+            manager.Instantiate(Storage.recipies["wall_circle"]);
             Image map = new("map.png");
 
             for (uint i = 0; i < map.Size.X; i++)
@@ -42,15 +32,24 @@ namespace PotatoMilkDemo
                     Color c = map.GetPixel(i, j);
                     if (c == Color.White)
                     {
-                        var wall = manager.Instantiate<WallSquare>();
-                        wall.startPos = new Vector2f(i * 32f, j * 32f);
+                        var wall = manager.Instantiate(Storage.recipies["wall_square"]);
+                        wall.GetComponent<WallSquare>().startPos = new Vector2f(i * 32f, j * 32f);
                     }
                     else if (c == Color.Red)
                     {
-                        var wall = manager.Instantiate<WallTriangle>();
-                        wall.startPos = new Vector2f(i * 32f, j * 32f);
+                        var recipe = Storage.recipies["wall_triangle"];
+                        var copy = new ObjectRecipe();
+                        foreach (var keyvalue in recipe.componentData)
+                        {
+                            copy.componentData.Add(keyvalue.Key, new Dictionary<string, object>());
+                            foreach (var intkeyvalue in keyvalue.Value)
+                            {
+                                copy.componentData[keyvalue.Key].Add(intkeyvalue.Key, intkeyvalue.Value);
+                            }
+                        }
+                        copy.componentData["transform"]["position"] = new Vector2f(i * 32f, j * 32f);
+                        var wall = manager.Instantiate(copy);
                     }
-
                 }
             }
 

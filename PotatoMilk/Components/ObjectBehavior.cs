@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
-    abstract class ObjectBehavior : IComponent
+    public abstract class ObjectBehavior : IComponent
     {
         public GameObject GameObject { get; private set; }
         protected Dictionary<string, object> data;

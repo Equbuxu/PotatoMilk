@@ -4,6 +4,6 @@ namespace PotatoMilk
 {
     public class ObjectRecipe
     {
-        public Dictionary<string, Dictionary<string, object>> componentData;
+        public Dictionary<string, Dictionary<string, object>> componentData = new();
     }
 }

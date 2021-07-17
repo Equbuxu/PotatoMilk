@@ -1,13 +1,12 @@
-﻿using PotatoMilk;
-using PotatoMilk.Components;
+﻿using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
 using SFML.System;
 using System;
-using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    class WallCircle : GameObject, IUpdatable
+    [ObjectName("wall_circle")]
+    class WallCircle : ObjectBehavior, IUpdatable
     {
         private Transform transform;
         private QuadRenderer renderer;
@@ -17,17 +16,9 @@ namespace PotatoMilkDemo
 
         public override void Start()
         {
-            transform = AddComponent<Transform>();
-            transform.Position = new Vector2f(100f, 200f);
-            renderer = AddComponent<QuadRenderer>();
-
-            renderer.Size = new Vector2f(32f, 32f);
-            renderer.Texture = Storage.texture;
-            renderer.TextureSize = new Vector2f(32f, 32f);
-            renderer.TextureTopLeft = new Vector2f(0f, 0f);
-
-            collider = AddComponent<CircleCollider>();
-            collider.Radius = 16f;
+            transform = GameObject.GetComponent<Transform>();
+            renderer = GameObject.GetComponent<QuadRenderer>();
+            collider = GameObject.GetComponent<CircleCollider>();
 
             collider.CollisionEnter += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 0f);
             collider.CollisionExit += (a, b) => renderer.TextureTopLeft = new Vector2f(0f, 0f);

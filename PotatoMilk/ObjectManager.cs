@@ -15,6 +15,7 @@ namespace PotatoMilk
         public CollisionManager Collisions { get; private set; } = new();
 
         private ObjectFactory objectFactory;
+        private HashSet<GameObject> toTrack = new();
 
         private HashSet<GameObject> allObjects = new();
         private HashSet<GameObject> toDestroy = new();
@@ -28,7 +29,7 @@ namespace PotatoMilk
         public GameObject Instantiate(ObjectRecipe recipe)
         {
             GameObject obj = objectFactory.CreateObject(recipe, this);
-            allObjects.Add(obj);
+            toTrack.Add(obj);
             return obj;
         }
 
@@ -56,6 +57,19 @@ namespace PotatoMilk
             }
         }
 
+        private void TrackQueued()
+        {
+            foreach (GameObject obj in toTrack)
+            {
+                allObjects.Add(obj);
+                foreach (var cmp in obj.Components)
+                {
+                    TrackComponent(cmp);
+                }
+            }
+            toTrack.Clear();
+        }
+
         private void DestroyQueued()
         {
             foreach (var obj in toDestroy)
@@ -78,6 +92,7 @@ namespace PotatoMilk
         {
             behaviorManager.Update();
             Collisions.CalculateCollisions();
+            TrackQueued();
             DestroyQueued();
             quadBatchingManager.Draw(window);
             polygonBatchingManager.Draw(window);

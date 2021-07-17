@@ -3,12 +3,11 @@ using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
 using SFML.System;
 using SFML.Window;
-using System.Collections.Generic;
-using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    class PlayerTriangle : GameObject, IMouseMoveConsumer, IUpdatable
+    [ObjectName("player_triangle")]
+    class PlayerTriangle : ObjectBehavior, IMouseMoveConsumer, IUpdatable
     {
         private Transform transform;
         private QuadRenderer renderer;
@@ -18,15 +17,9 @@ namespace PotatoMilkDemo
         private bool colliding = false;
         public override void Start()
         {
-            transform = AddComponent<Transform>();
-            transform.Position = new Vector2f(10f, 0f);
-            renderer = AddComponent<QuadRenderer>();
-            renderer.Texture = Storage.texture;
-            renderer.TextureTopLeft = new Vector2f(0f, 32f);
-            renderer.TextureSize = new Vector2f(32f, 32f);
-            renderer.Size = new Vector2f(32f, 32f);
-            var collider = AddComponent<ConvexPolygonCollider>();
-            collider.Vertices = new List<Vector2f> { new Vector2f(0f, 0f), new Vector2f(32f, 32f), new Vector2f(0f, 32f) };
+            transform = GameObject.GetComponent<Transform>();
+            renderer = GameObject.GetComponent<QuadRenderer>();
+            var collider = GameObject.GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += OnCollision;
             collider.CollisionExit += OnCollisionExit;

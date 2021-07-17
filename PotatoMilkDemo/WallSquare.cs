@@ -1,17 +1,16 @@
-﻿using PotatoMilk;
-using PotatoMilk.Components;
+﻿using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
 using PotatoMilk.Helpers;
 using SFML.System;
 using SFML.Window;
-using Transform = PotatoMilk.Components.Transform;
 
 namespace PotatoMilkDemo
 {
-    class WallSquare : GameObject, IMouseButtonConsumer, IMouseMoveConsumer
+    [ObjectName("wall_square")]
+    class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer
     {
         public Vector2f startPos;
-        public bool mouseHeld = false;
+        private bool mouseHeld = false;
 
         private Transform transform;
         private ConvexPolygonCollider collider;
@@ -37,20 +36,15 @@ namespace PotatoMilkDemo
 
         public override void Start()
         {
-            transform = AddComponent<Transform>();
+            transform = GameObject.GetComponent<Transform>();
             transform.Position = startPos;
-            var renderer = AddComponent<QuadRenderer>();
-            renderer.Texture = Storage.texture2;
-            renderer.Size = new(32f, 32f);
-            renderer.TextureSize = new(32f, 32f);
-            renderer.TextureTopLeft = new(32f, 0f);
-            collider = AddComponent<ConvexPolygonCollider>();
-            collider.Vertices = new() { new(0, 0), new(32, 0), new(32, 32), new(0, 32) };
+            collider = GameObject.GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += (a, b) =>
             {
-                if ((b.Other as IComponent).GameObject is PlayerTriangle)
-                    Manager.Destroy(this);
+                var otherObj = (b.Other as IComponent).GameObject;
+                if (otherObj.HasComponent(nameof(PlayerTriangle)))
+                    GameObject.Manager.Destroy(GameObject);
             };
         }
     }
