@@ -10,7 +10,7 @@ namespace PotatoMilk.Components
     {
         private Transform transform;
         private List<Vector2f> transformedVertices = new();
-        private List<Vector2f> vertices = new() { new Vector2f() };
+        private List<Vector2f> vertices;
 
         public event EventHandler<Collision> CollisionEnter;
         public event EventHandler<Collision> CollisionStay;
@@ -30,22 +30,17 @@ namespace PotatoMilk.Components
         }
         public GameObject GameObject { get; private set; }
 
-        public Vector2f Pos => transform.Pos;
+        public Vector2f Position => transform.Position;
 
-        public void Initialize(GameObject parent)
+        public void Initialize(GameObject container, Dictionary<string, object> data)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
-            try
-            {
-                transform = parent.GetComponent<Transform>();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(nameof(ConvexPolygonCollider) + " depends on Transform", e);
-            }
-            GameObject = parent;
+            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>() { new Vector2f() });
+            GameObject = container;
             transform.StateUpdated += RecalculateVertices;
+
             RecalculateVertices(null, EventArgs.Empty);
         }
 
@@ -77,7 +72,7 @@ namespace PotatoMilk.Components
             }
             for (int i = 0; i < vertices.Count; i++)
             {
-                transformedVertices[i] = vertices[i] + transform.Pos;
+                transformedVertices[i] = vertices[i] + transform.Position;
             }
             for (int i = 0; i < transformedVertices.Count; i++)
             {

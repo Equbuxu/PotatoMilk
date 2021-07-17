@@ -1,6 +1,7 @@
 ﻿using PotatoMilk.Helpers;
 using SFML.System;
 using System;
+using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
@@ -8,9 +9,9 @@ namespace PotatoMilk.Components
     {
         public GameObject GameObject { get; private set; }
         private Transform transform;
-        public Vector2f Pos => transform.Pos;
+        public Vector2f Position => transform.Position;
 
-        public float Radius { get; set; } = 32f;
+        public float Radius { get; set; }
 
         public event EventHandler<Collision> CollisionEnter;
         public event EventHandler<Collision> CollisionStay;
@@ -18,22 +19,17 @@ namespace PotatoMilk.Components
 
         public Vector2f GetSupportPoint(Vector2f direction)
         {
-            return direction.Norm() * Radius + Pos + new Vector2f(Radius, Radius);
+            return direction.Norm() * Radius + Position + new Vector2f(Radius, Radius);
         }
 
-        public void Initialize(GameObject parent)
+        public void Initialize(GameObject container, Dictionary<string, object> data)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
-            try
-            {
-                transform = parent.GetComponent<Transform>();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(nameof(ConvexPolygonCollider) + " depends on Transform", e);
-            }
-            GameObject = parent;
+            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            GameObject = container;
+
+            Radius = ComponentHelper.TryGetDataValue(data, "radius", 32f);
         }
 
         public void InvokeCollisionEnter(Collision collision) => CollisionEnter?.Invoke(this, collision);

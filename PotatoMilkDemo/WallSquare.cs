@@ -31,14 +31,14 @@ namespace PotatoMilkDemo
         public void MouseMoved(object sender, MouseMoveEventArgs e)
         {
             if (mouseHeld)
-                transform.Pos = new(transform.Pos.X + e.X - prevPos.X, transform.Pos.Y + e.Y - prevPos.Y);
+                transform.Position = new(transform.Position.X + e.X - prevPos.X, transform.Position.Y + e.Y - prevPos.Y);
             prevPos = new Vector2f(e.X, e.Y);
         }
 
         public override void Start()
         {
             transform = AddComponent<Transform>();
-            transform.Pos = startPos;
+            transform.Position = startPos;
             var renderer = AddComponent<QuadRenderer>();
             renderer.Texture = Storage.texture2;
             renderer.Size = new(32f, 32f);

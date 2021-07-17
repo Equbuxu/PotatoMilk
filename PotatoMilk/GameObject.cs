@@ -33,7 +33,7 @@ namespace PotatoMilk
                 throw new Exception("The object already has the component \"" + name + "\"");
             namedComponents.Add(name, component);
             components.Add(component);
-            component.Initialize(this);
+            component.Initialize(this, null);
             Manager?.TrackComponent(component);
             return component;
         }

@@ -7,7 +7,7 @@ namespace PotatoMilk.Helpers
     {
         public static bool IsPointInside(ICollider a, Vector2f point)
         {
-            var direction = a.Pos - point;
+            var direction = a.Position - point;
             var firstVertex = a.GetSupportPoint(direction) - point;
             var secondVertex = a.GetSupportPoint(direction * -1) - point;
             var perp = (secondVertex - firstVertex).Perp(-firstVertex);
@@ -47,7 +47,7 @@ namespace PotatoMilk.Helpers
 
         internal static (Vector2f, Vector2f, Vector2f)? CheckPairCollision(ICollider a, ICollider b)
         {
-            var direction = b.Pos - a.Pos;
+            var direction = b.Position - a.Position;
             var firstVertex = a.GetSupportPoint(direction) - b.GetSupportPoint(direction * -1);
             var secondVertex = a.GetSupportPoint(direction * -1) - b.GetSupportPoint(direction);
             var perp = (secondVertex - firstVertex).Perp(-firstVertex);

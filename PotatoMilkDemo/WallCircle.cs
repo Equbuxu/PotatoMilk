@@ -18,7 +18,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = AddComponent<Transform>();
-            transform.Pos = new Vector2f(100f, 200f);
+            transform.Position = new Vector2f(100f, 200f);
             renderer = AddComponent<QuadRenderer>();
 
             renderer.Size = new Vector2f(32f, 32f);
@@ -39,7 +39,7 @@ namespace PotatoMilkDemo
         public void Update()
         {
             framec++;
-            transform.Pos = new Vector2f((float)Math.Sin(framec / 30f) * 25f + 100f, 200f);
+            transform.Position = new Vector2f((float)Math.Sin(framec / 30f) * 25f + 100f, 200f);
         }
     }
 }

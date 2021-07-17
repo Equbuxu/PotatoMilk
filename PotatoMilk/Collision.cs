@@ -17,7 +17,7 @@ namespace PotatoMilk
                 this.decorated = decorated;
             }
 
-            public Vector2f Pos => decorated.Pos + Offset;
+            public Vector2f Position => decorated.Position + Offset;
 
             public event EventHandler<Collision> CollisionStay;
             public event EventHandler<Collision> CollisionExit;
@@ -67,7 +67,7 @@ namespace PotatoMilk
             if (exit)
                 throw new Exception("Objects no longer collide");
             Vector2f front = new Vector2f(0, 0);
-            Vector2f back = prevPos - Self.Pos;
+            Vector2f back = prevPos - Self.Position;
             ColliderDecorator collider = new ColliderDecorator(Self);
             for (int i = 0; i < 10; i++)
             {
@@ -78,7 +78,7 @@ namespace PotatoMilk
                 else
                     back = testPos;
             }
-            return Self.Pos + back;
+            return Self.Position + back;
         }
 
         public Vector2f CalculatePushOutVector()

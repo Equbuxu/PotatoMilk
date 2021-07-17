@@ -21,7 +21,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = AddComponent<Transform>();
-            transform.Pos = new(300f, 200f);
+            transform.Position = new(300f, 200f);
             renderer = AddComponent<QuadRenderer>();
             renderer.Size = size;
             renderer.Texture = Storage.texture2;
@@ -35,7 +35,7 @@ namespace PotatoMilkDemo
 
         private void OnCollision(object sender, Collision e)
         {
-            transform.Pos += e.CalculatePushOutVector();
+            transform.Position += e.CalculatePushOutVector();
             /*
             Vector2f newPos = transform.Pos;
             transform.Pos = prevPos;
@@ -68,8 +68,8 @@ namespace PotatoMilkDemo
 
         public void Update()
         {
-            prevPos = transform.Pos;
-            Vector2f newPos = transform.Pos;
+            prevPos = transform.Position;
+            Vector2f newPos = transform.Position;
             if (up)
                 newPos += new Vector2f(0f, -2f);
             if (down)
@@ -78,7 +78,7 @@ namespace PotatoMilkDemo
                 newPos += new Vector2f(-2f, 0f);
             if (right)
                 newPos += new Vector2f(2f, 0f);
-            transform.Pos = newPos;
+            transform.Position = newPos;
         }
         public void KeyPressed(object sender, KeyEventArgs args)
         {

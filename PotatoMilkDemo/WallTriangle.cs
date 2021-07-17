@@ -14,7 +14,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             var transform = AddComponent<Transform>();
-            transform.Pos = startPos;
+            transform.Position = startPos;
             renderer = AddComponent<QuadRenderer>();
             renderer.Texture = Storage.texture;
             renderer.TextureTopLeft = new Vector2f(32f, 32f);

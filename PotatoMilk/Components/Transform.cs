@@ -1,17 +1,19 @@
-﻿using SFML.System;
+﻿using PotatoMilk.Helpers;
+using SFML.System;
 using System;
+using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
     public class Transform : IComponent, IStateful
     {
-        private Vector2f pos;
-        public Vector2f Pos
+        private Vector2f position;
+        public Vector2f Position
         {
-            get => pos;
+            get => position;
             set
             {
-                pos = value;
+                position = value;
                 StateUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -20,11 +22,12 @@ namespace PotatoMilk.Components
 
         public event EventHandler StateUpdated;
 
-        public void Initialize(GameObject parent)
+        public void Initialize(GameObject container, Dictionary<string, object> data)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
-            GameObject = parent;
+            GameObject = container;
+            Position = ComponentHelper.TryGetDataValue(data, "position", new Vector2f());
         }
     }
 }

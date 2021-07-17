@@ -15,7 +15,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = AddComponent<Transform>();
-            transform.Pos = new(200, 100);
+            transform.Position = new(200, 100);
             rend = AddComponent<PolygonRenderer>();
             rend.Color = Color.Blue;
             var vert = new List<Vector2f>()

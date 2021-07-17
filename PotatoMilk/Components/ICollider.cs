@@ -5,7 +5,7 @@ namespace PotatoMilk.Components
 {
     public interface ICollider
     {
-        Vector2f Pos { get; }
+        Vector2f Position { get; }
         Vector2f GetSupportPoint(Vector2f direction);
         event EventHandler<Collision> CollisionEnter;
         event EventHandler<Collision> CollisionStay;

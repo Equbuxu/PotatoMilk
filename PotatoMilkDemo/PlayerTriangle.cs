@@ -19,7 +19,7 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = AddComponent<Transform>();
-            transform.Pos = new Vector2f(10f, 0f);
+            transform.Position = new Vector2f(10f, 0f);
             renderer = AddComponent<QuadRenderer>();
             renderer.Texture = Storage.texture;
             renderer.TextureTopLeft = new Vector2f(0f, 32f);
@@ -43,7 +43,7 @@ namespace PotatoMilkDemo
         private void OnCollision(object sender, Collision e)
         {
             renderer.TextureTopLeft = new Vector2f(0f, 64f);
-            transform.Pos = e.ApproximateCollisionPosition(prevPos);
+            transform.Position = e.ApproximateCollisionPosition(prevPos);
             colliding = true;
         }
 
@@ -54,12 +54,12 @@ namespace PotatoMilkDemo
 
         public void Update()
         {
-            prevPos = transform.Pos;
+            prevPos = transform.Position;
             if (colliding)
                 return;
             if (Mouse.IsButtonPressed(Mouse.Button.Right))
             {
-                transform.Pos += (mousePos - transform.Pos) * 0.1f;
+                transform.Position += (mousePos - transform.Position) * 0.1f;
             }
         }
     }

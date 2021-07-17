@@ -13,7 +13,7 @@ namespace PotatoMilk.Components
         public event EventHandler StateUpdated;
 
         private Transform transform;
-        private List<Vector2f> vertices = new();
+        private List<Vector2f> vertices;
         public List<Vector2f> Vertices
         {
             set
@@ -39,20 +39,17 @@ namespace PotatoMilk.Components
             }
         }
 
-        public void Initialize(GameObject parent)
+        public void Initialize(GameObject container, Dictionary<string, object> data)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
-            try
-            {
-                transform = parent.GetComponent<Transform>();
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"{nameof(PolygonRenderer)} depends on Transform", e);
-            }
-            GameObject = parent;
+
+            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            GameObject = container;
             transform.StateUpdated += TriangulateVertices;
+
+            Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>());
+            Color = ComponentHelper.TryGetDataValue(data, "color", Color.Red);
         }
 
         private void TriangulateVertices(object sender, EventArgs args)
@@ -60,7 +57,7 @@ namespace PotatoMilk.Components
             LinkedList<Vector2f> transformed = new();
             for (int i = 0; i < vertices.Count; i++)
             {
-                transformed.AddLast(vertices[i] + transform.Pos);
+                transformed.AddLast(vertices[i] + transform.Position);
             }
 
             triangles.Clear();

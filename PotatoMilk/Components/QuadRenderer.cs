@@ -1,6 +1,8 @@
-﻿using SFML.Graphics;
+﻿using PotatoMilk.Helpers;
+using SFML.Graphics;
 using SFML.System;
 using System;
+using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
@@ -58,33 +60,31 @@ namespace PotatoMilk.Components
         {
             get
             {
-                return (transform.Pos,
-                        new Vector2f(transform.Pos.X, transform.Pos.Y + Size.Y),
-                        transform.Pos + Size,
-                        new Vector2f(transform.Pos.X + Size.X, transform.Pos.Y));
+                return (transform.Position,
+                        new Vector2f(transform.Position.X, transform.Position.Y + Size.Y),
+                        transform.Position + Size,
+                        new Vector2f(transform.Position.X + Size.X, transform.Position.Y));
             }
         }
 
         public GameObject GameObject { get; private set; }
 
 
-        public void Initialize(GameObject parent)
+        public void Initialize(GameObject container, Dictionary<string, object> data)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
-            try
-            {
-                transform = parent.GetComponent<Transform>();
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"{nameof(QuadRenderer)} depends on Transform", e);
-            }
-            GameObject = parent;
+            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            GameObject = container;
             transform.StateUpdated += (sender, args) =>
             {
                 StateUpdated?.Invoke(this, args);
             };
+
+            Size = ComponentHelper.TryGetDataValue(data, "size", new Vector2f());
+            Texture = ComponentHelper.TryGetDataValue<Texture>(data, "texture", null);
+            TextureTopLeft = ComponentHelper.TryGetDataValue(data, "texture_top_left", new Vector2f());
+            TextureSize = ComponentHelper.TryGetDataValue(data, "texture_size", new Vector2f());
         }
     }
 }
