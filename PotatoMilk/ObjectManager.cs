@@ -1,4 +1,5 @@
 ﻿using PotatoMilk.Components;
+using PotatoMilk.Helpers;
 using PotatoMilk.ManagerComponents;
 using SFML.Graphics;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace PotatoMilk
         {
             eventDispatcher = new(window);
             objectFactory = new(this);
+        }
+
+        public void LoadStorage(byte[] texturesZip, string texturesJson, string objectsJson, string roomsJson)
+        {
+            var textures = StorageLoader.LoadTextures(texturesZip, texturesJson);
         }
 
         public GameObject Instantiate(ObjectRecipe recipe)

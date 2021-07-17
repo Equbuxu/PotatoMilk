@@ -1,4 +1,5 @@
 ﻿using PotatoMilk;
+using PotatoMilkDemo.Properties;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -12,13 +13,19 @@ namespace PotatoMilkDemo
         static ObjectManager manager;
         static void Main(string[] args)
         {
-            Storage.Load();
+            //Storage.Load();
 
             RenderWindow window = new(new VideoMode(640, 480), "PotatoMilk Demo Project", Styles.Default);
             window.Closed += (sender, args) => window.Close();
             window.SetVerticalSyncEnabled(true);
 
+            string texturesJson = System.Text.Encoding.UTF8.GetString(Resources.textures);
+            string objectsJson = System.Text.Encoding.UTF8.GetString(Resources.objects);
+            string roomsJson = System.Text.Encoding.UTF8.GetString(Resources.rooms);
+            byte[] texturesZip = Resources.textureImages;
+
             manager = new(window);
+            manager.LoadStorage(texturesZip, texturesJson, objectsJson, roomsJson);
             manager.Instantiate(Storage.recipies["player_square"]);
             manager.Instantiate(Storage.recipies["player_triangle"]);
             manager.Instantiate(Storage.recipies["polygon"]);

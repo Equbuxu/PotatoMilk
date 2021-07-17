@@ -1,0 +1,17 @@
+{
+  "room1": {
+    "objects": [
+      {
+        "name": "player_square",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 300, 200 ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

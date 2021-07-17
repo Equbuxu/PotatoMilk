@@ -1,0 +1,49 @@
+{
+  "player_square": {
+    "persistent": false,
+
+    "transform": {
+      "position": {
+        "type": "Vector2f",
+        "value": [ 10, 10 ]
+      }
+    },
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 16, 16 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites2"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 0, 0 ],
+          [ 16, 0 ],
+          [ 16, 16 ],
+          [ 0, 16 ]
+        ]
+      }
+    },
+
+    "player_square_beh": {
+      "test": {
+        "type": "String",
+        "value": "passed"
+      }
+    }
+  }
+
+
+
+}
