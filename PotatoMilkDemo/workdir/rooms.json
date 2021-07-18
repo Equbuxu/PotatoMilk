@@ -1,6 +1,6 @@
-{
+﻿{
   "room1": {
-    "objects": [
+    "recipes": [
       {
         "name": "player_square",
         "overrides": {
@@ -8,6 +8,61 @@
             "position": {
               "type": "Vector2f",
               "value": [ 300, 200 ]
+            }
+          }
+        }
+      },
+      {
+        "name": "player_triangle",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 10, 0 ]
+            }
+          }
+        }
+      },
+      {
+        "name": "polygon",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 200, 100 ]
+            }
+          }
+        }
+      },
+      {
+        "name": "wall_circle",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 100, 200 ]
+            }
+          }
+        }
+      },
+      {
+        "name": "wall_square",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 300, 300 ]
+            }
+          }
+        }
+      },
+      {
+        "name": "wall_triangle",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 332, 300 ]
             }
           }
         }

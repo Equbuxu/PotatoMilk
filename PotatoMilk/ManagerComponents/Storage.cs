@@ -6,21 +6,21 @@ namespace PotatoMilk.ManagerComponents
     public class Storage
     {
         private readonly Dictionary<string, Texture> textures;
-        private readonly Dictionary<string, ObjectRecipe> objects;
+        private readonly Dictionary<string, ObjectRecipe> recipes;
         private readonly Dictionary<string, List<ObjectRecipe>> rooms;
 
         internal Storage(
             Dictionary<string, Texture> textures,
-            Dictionary<string, ObjectRecipe> objects,
+            Dictionary<string, ObjectRecipe> recipes,
             Dictionary<string, List<ObjectRecipe>> rooms)
         {
             this.textures = textures;
-            this.objects = objects;
+            this.recipes = recipes;
             this.rooms = rooms;
         }
 
-        private Texture GetTexture(string name) => textures.ContainsKey(name) ? textures[name] : null;
-        private ObjectRecipe GetObjectRecipe(string name) => objects.ContainsKey(name) ? objects[name] : null;
-        private List<ObjectRecipe> GetRoom(string name) => rooms.ContainsKey(name) ? rooms[name] : null;
+        public Texture GetTexture(string name) => textures.ContainsKey(name) ? textures[name] : null;
+        public ObjectRecipe GetObjectRecipe(string name) => recipes.ContainsKey(name) ? recipes[name] : null;
+        public List<ObjectRecipe> GetRoom(string name) => rooms.ContainsKey(name) ? rooms[name] : null;
     }
 }

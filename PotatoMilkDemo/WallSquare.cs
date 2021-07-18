@@ -9,7 +9,6 @@ namespace PotatoMilkDemo
     [ComponentName("wall_square_beh")]
     class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer
     {
-        public Vector2f startPos;
         private bool mouseHeld = false;
 
         private Transform transform;
@@ -37,7 +36,6 @@ namespace PotatoMilkDemo
         public override void Start()
         {
             transform = GameObject.GetComponent<Transform>();
-            transform.Position = startPos;
             collider = GameObject.GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += (a, b) =>

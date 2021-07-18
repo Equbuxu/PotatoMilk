@@ -1,9 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="workdir\recipes.json" />
+    <None Remove="workdir\rooms.json" />
+    <None Remove="workdir\textureImages.zip" />
+    <None Remove="workdir\textures.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="workdir\recipes.json" />
+    <EmbeddedResource Include="workdir\rooms.json" />
+    <EmbeddedResource Include="workdir\textureImages.zip" />
+    <EmbeddedResource Include="workdir\textures.json" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PotatoMilk\PotatoMilk.csproj" />
@@ -24,6 +38,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties />
+    </VisualStudio>
+  </ProjectExtensions>
 
 </Project>

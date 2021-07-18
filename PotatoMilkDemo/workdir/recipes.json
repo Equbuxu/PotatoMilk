@@ -1,0 +1,223 @@
+﻿{
+  "player_square": {
+    "persistent": true,
+    "transform": {},
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 16, 16 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites2"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 0, 0 ],
+          [ 16, 0 ],
+          [ 16, 16 ],
+          [ 0, 16 ]
+        ]
+      }
+    },
+
+    "player_square_beh": {
+      "test": {
+        "type": "string",
+        "value": "passed"
+      }
+    }
+  },
+
+
+  "player_triangle": {
+    "persistent": true,
+    "transform": {},
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture_top_left": {
+        "type": "Vector2f",
+        "value": [ 0, 32 ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 0, 0 ],
+          [ 32, 32 ],
+          [ 0, 32 ]
+        ]
+      }
+    },
+
+    "player_triangle_beh": {}
+  },
+
+
+  "polygon": {
+    "transform": {},
+
+    "polygon_renderer": {
+      "color": {
+        "type": "Color",
+        "value": [ 0, 0, 1 ]
+      },
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ -19, -33 ],
+          [ 56, -35 ],
+          [ 93, 12 ],
+          [ -11, 59 ],
+          [ -98, 37 ],
+          [ -80, -9 ]
+        ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ -19, -33 ],
+          [ 56, -35 ],
+          [ 93, 12 ],
+          [ -11, 59 ],
+          [ -98, 37 ],
+          [ -80, -9 ]
+        ]
+      }
+    }
+  },
+
+
+  "wall_circle": {
+    "transform": {},
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture_top_left": {
+        "type": "Vector2f",
+        "value": [ 0, 0 ]
+      }
+    },
+
+    "circle_collider": {
+      "radius": {
+        "type": "float",
+        "value": 16
+      }
+    },
+
+    "wall_circle_beh": {}
+  },
+
+
+  "wall_triangle": {
+    "transform": {},
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture_top_left": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 0, 0 ],
+          [ 32, 0 ],
+          [ 0, 32 ]
+        ]
+      }
+    },
+
+    "wall_triangle_beh": {}
+  },
+
+
+  "wall_square": {
+    "transform": {},
+
+    "quad_renderer": {
+      "size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture": {
+        "type": "Texture",
+        "value": "sprites2"
+      },
+      "texture_size": {
+        "type": "Vector2f",
+        "value": [ 32, 32 ]
+      },
+      "texture_top_left": {
+        "type": "Vector2f",
+        "value": [ 32, 0 ]
+      }
+    },
+
+    "convex_polygon_collider": {
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 0, 0 ],
+          [ 32, 0 ],
+          [ 32, 32 ],
+          [ 0, 32 ]
+        ]
+      }
+    },
+
+    "wall_square_beh": {}
+  }
+}

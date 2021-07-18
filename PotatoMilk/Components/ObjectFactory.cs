@@ -19,7 +19,7 @@ namespace PotatoMilk.Components
         {
             GameObject obj = new();
             obj.Manager = manager;
-            obj.Persistent = recipe.persistent;
+            obj.Persistent = recipe.persistent ?? false;
             obj.Name = recipe.name;
 
             foreach (var keyvalue in recipe.componentData)
