@@ -1,11 +1,13 @@
 ﻿using PotatoMilk.Components;
 using PotatoMilk.Helpers;
+using System;
 using System.Collections.Generic;
 
 namespace PotatoMilk.ManagerComponents
 {
     public class CollisionManager
     {
+        private HashSet<ICollider> toUpdateState = new();
         private List<ICollider> colliders = new();
         private HashSet<(ICollider, ICollider)> activeCollisionPairs = new();
         private HashSet<(ICollider, ICollider)> detachedCollisions = new();
@@ -28,26 +30,26 @@ namespace PotatoMilk.ManagerComponents
         internal void TrackComponent(IComponent component)
         {
             if (component is ICollider collider)
-                colliders.Add(collider);
+            {
+                if (collider.Enabled)
+                    ActivateCollider(collider);
+                else
+                    DeactivateCollider(collider);
+                collider.StateUpdated += OnStateUpdate;
+            }
         }
         internal void UntrackComponent(IComponent component)
         {
             if (component is ICollider collider)
             {
-                colliders.Remove(collider);
-
-                foreach (var pair in activeCollisionPairs)
-                {
-                    if (pair.Item1 == collider || pair.Item2 == collider)
-                    {
-                        detachedCollisions.Add(pair);
-                    }
-                }
+                DeactivateCollider(collider);
+                collider.StateUpdated -= OnStateUpdate;
             }
         }
 
         internal void CalculateCollisions()
         {
+            UpdateState();
             for (int i = 0; i < colliders.Count - 1; i++)
             {
                 for (int j = i + 1; j < colliders.Count; j++)
@@ -79,6 +81,45 @@ namespace PotatoMilk.ManagerComponents
                 }
             }
             RemoveDetachedCollisions();
+        }
+
+        private void OnStateUpdate(object sender, EventArgs args)
+        {
+            ICollider collider = (ICollider)sender;
+            toUpdateState.Add(collider);
+        }
+
+        private void UpdateState()
+        {
+            foreach (ICollider collider in toUpdateState)
+            {
+                if (collider.Enabled)
+                    ActivateCollider(collider);
+                else
+                    DeactivateCollider(collider);
+            }
+            toUpdateState.Clear();
+        }
+
+        private void ActivateCollider(ICollider collider)
+        {
+            if (!colliders.Contains(collider))
+                colliders.Add(collider);
+        }
+
+        private void DeactivateCollider(ICollider collider)
+        {
+            if (!colliders.Remove(collider))
+                return;
+            toUpdateState.Remove(collider);
+
+            foreach (var pair in activeCollisionPairs)
+            {
+                if (pair.Item1 == collider || pair.Item2 == collider)
+                {
+                    detachedCollisions.Add(pair);
+                }
+            }
         }
 
         private void RemoveDetachedCollisions()

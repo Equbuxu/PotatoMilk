@@ -30,6 +30,17 @@
       }
     },
 
+    "camera": {
+      "world_viewport_size": {
+        "type": "Vector2f",
+        "value": [ 320, 240 ]
+      },
+      "render_priority": {
+        "type": "int",
+        "value": 1
+      }
+    },
+
     "player_square_beh": {
       "test": {
         "type": "string",
@@ -219,5 +230,16 @@
     },
 
     "wall_square_beh": {}
+  },
+
+  "camera": {
+    "transform": {},
+
+    "camera": {
+      "world_viewport_size": {
+        "type": "Vector2f",
+        "value": [ 640, 480 ]
+      }
+    }
   }
 }

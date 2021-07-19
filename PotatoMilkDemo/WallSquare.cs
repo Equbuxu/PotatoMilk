@@ -1,13 +1,12 @@
 ﻿using PotatoMilk.Components;
 using PotatoMilk.ConsumerInterfaces;
-using PotatoMilk.Helpers;
 using SFML.System;
 using SFML.Window;
 
 namespace PotatoMilkDemo
 {
     [ComponentName("wall_square_beh")]
-    class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer
+    class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer, IKeyboardConsumer
     {
         private bool mouseHeld = false;
 
@@ -15,11 +14,15 @@ namespace PotatoMilkDemo
         private ConvexPolygonCollider collider;
         private Vector2f prevPos;
 
-        public void MouseButtonPressed(object sender, MouseButtonEventArgs args)
+        public void KeyPressed(object sender, KeyEventArgs args) { }
+
+        public void KeyReleased(object sender, KeyEventArgs args)
         {
-            if (CollisionHelper.IsPointInside(collider, new Vector2f(args.X, args.Y)))
-                mouseHeld = true;
+            if (args.Code == Keyboard.Key.Space)
+                collider.MouseHitEnabled = !collider.MouseHitEnabled;
         }
+
+        public void MouseButtonPressed(object sender, MouseButtonEventArgs args) { }
 
         public void MouseButtonReleased(object sender, MouseButtonEventArgs args)
         {
@@ -43,6 +46,9 @@ namespace PotatoMilkDemo
                 if ((b.Other as IComponent).GameObject.Name == "player_triangle")
                     GameObject.Manager.Destroy(GameObject);
             };
+            collider.MouseButtonPress += (a, b) => mouseHeld = true;
         }
+
+        public void TextEntered(object sender, TextEventArgs args) { }
     }
 }

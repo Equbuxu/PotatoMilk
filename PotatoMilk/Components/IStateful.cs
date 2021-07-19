@@ -2,7 +2,7 @@
 
 namespace PotatoMilk.Components
 {
-    interface IStateful
+    public interface IStateful
     {
         event EventHandler StateUpdated;
     }

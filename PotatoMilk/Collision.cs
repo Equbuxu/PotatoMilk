@@ -1,4 +1,5 @@
 ﻿using PotatoMilk.Components;
+using PotatoMilk.Containers;
 using PotatoMilk.Helpers;
 using SFML.System;
 using System;
@@ -19,14 +20,23 @@ namespace PotatoMilk
 
             public Vector2f Position => decorated.Position + Offset;
 
+            public bool Enabled => decorated.Enabled;
+            public bool MouseHitEnabled => decorated.MouseHitEnabled;
+
             public event EventHandler<Collision> CollisionStay;
             public event EventHandler<Collision> CollisionExit;
             public event EventHandler<Collision> CollisionEnter;
+            public event EventHandler StateUpdated;
+            public event EventHandler<WorldMouseButtonEventArgs> MouseButtonPress;
+            public event EventHandler<WorldMouseButtonEventArgs> MouseButtonRelease;
 
             public Vector2f GetSupportPoint(Vector2f direction) => decorated.GetSupportPoint(direction) + Offset;
             public void InvokeCollisionEnter(Collision collision) { }
             public void InvokeCollisionExit(Collision collision) { }
             public void InvokeCollisionStay(Collision collision) { }
+
+            public void InvokeMouseButtonPress(WorldMouseButtonEventArgs args) { }
+            public void InvokeMouseButtonRelease(WorldMouseButtonEventArgs args) { }
         }
         public ICollider Self { get; }
         public ICollider Other { get; }

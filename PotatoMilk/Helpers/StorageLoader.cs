@@ -62,11 +62,13 @@ namespace PotatoMilk.Helpers
                 foreach (var roomRecipe in roomRecipesJson.EnumerateArray())
                 {
                     string recipeName = roomRecipe.GetProperty("name").GetString();
-                    var recipeOverridesJson = roomRecipe.GetProperty("overrides");
-                    var recipeOverridesData = ParseRecipe(recipeOverridesJson, textures);
                     var originalRecipe = recipes[recipeName];
                     ObjectRecipe finalRecipe = new ObjectRecipe(originalRecipe);
-                    finalRecipe.OverrideFrom(recipeOverridesData);
+                    if (roomRecipe.TryGetProperty("overrides", out JsonElement recipeOverridesJson))
+                    {
+                        var recipeOverridesData = ParseRecipe(recipeOverridesJson, textures);
+                        finalRecipe.OverrideFrom(recipeOverridesData);
+                    }
                     roomRecipes.Add(finalRecipe);
                 }
                 rooms.Add(roomName, roomRecipes);
@@ -109,11 +111,12 @@ namespace PotatoMilk.Helpers
             var name = dataPoint.Name;
             return type.GetString() switch
             {
-                "Vector2f" => (name, ConvertVector2f(value)),
-                "List<Vector2f>" => (name, ConvertListVector2f(value)),
-                "string" => (name, value.GetString()),
-                "Color" => (name, ConvertColor(value)),
                 "float" => (name, (float)value.GetDouble()),
+                "int" => (name, value.GetInt32()),
+                "string" => (name, value.GetString()),
+                "Vector2f" => (name, ConvertVector2f(value)),
+                "Color" => (name, ConvertColor(value)),
+                "List<Vector2f>" => (name, ConvertListVector2f(value)),
                 "Texture" => (name, textures[value.GetString()]),
                 _ => (name, null),
             };

@@ -31,6 +31,7 @@ namespace PotatoMilk.Components
                     case "convex_polygon_collider": obj.AddComponentNoTracking<ConvexPolygonCollider>(data); break;
                     case "polygon_renderer": obj.AddComponentNoTracking<PolygonRenderer>(data); break;
                     case "quad_renderer": obj.AddComponentNoTracking<QuadRenderer>(data); break;
+                    case "camera": obj.AddComponentNoTracking<Camera>(data); break;
                     case "transform": obj.AddComponentNoTracking<Transform>(data); break;
                     default: AddObjectBehaviour(obj, data, keyvalue.Key); break;
                 };

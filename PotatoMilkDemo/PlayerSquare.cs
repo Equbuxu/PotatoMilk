@@ -21,11 +21,13 @@ namespace PotatoMilkDemo
         private QuadRenderer renderer;
         private ConvexPolygonCollider collider;
         private Vector2f size = new(16f, 16f);
+        private Camera camera;
         public override void Start()
         {
             transform = GameObject.GetComponent<Transform>();
             renderer = GameObject.GetComponent<QuadRenderer>();
             collider = GameObject.GetComponent<ConvexPolygonCollider>();
+            camera = GameObject.GetComponent<Camera>();
             collider.CollisionEnter += OnCollision;
             collider.CollisionStay += OnCollision;
             Debug.Write(ComponentHelper.TryGetDataValue<string>(data, "test", "failed"));
@@ -87,6 +89,15 @@ namespace PotatoMilkDemo
                         renderer.Size = size;
                         break;
                     }
+                case Keyboard.Key.Numpad1:
+                    camera.RenderPriority = -1;
+                    break;
+                case Keyboard.Key.Numpad2:
+                    camera.RenderPriority = 1;
+                    break;
+                case Keyboard.Key.Numpad3:
+                    collider.Enabled = !collider.Enabled;
+                    break;
             }
         }
 

@@ -66,6 +66,17 @@
             }
           }
         }
+      },
+      {
+        "name": "camera",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 320, 240 ]
+            }
+          }
+        }
       }
     ]
   }

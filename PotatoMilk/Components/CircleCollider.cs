@@ -1,4 +1,5 @@
-﻿using PotatoMilk.Helpers;
+﻿using PotatoMilk.Containers;
+using PotatoMilk.Helpers;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,34 @@ namespace PotatoMilk.Components
 
         public float Radius { get; set; }
 
+        private bool enabled;
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                enabled = value;
+                StateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private bool mouseHitEnabled;
+        public bool MouseHitEnabled
+        {
+            get => mouseHitEnabled;
+            set
+            {
+                mouseHitEnabled = value;
+                StateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public event EventHandler<Collision> CollisionEnter;
         public event EventHandler<Collision> CollisionStay;
         public event EventHandler<Collision> CollisionExit;
+        public event EventHandler StateUpdated;
+        public event EventHandler<WorldMouseButtonEventArgs> MouseButtonPress;
+        public event EventHandler<WorldMouseButtonEventArgs> MouseButtonRelease;
 
         public Vector2f GetSupportPoint(Vector2f direction)
         {
@@ -30,10 +56,14 @@ namespace PotatoMilk.Components
             GameObject = container;
 
             Radius = ComponentHelper.TryGetDataValue(data, "radius", 32f);
+            Enabled = ComponentHelper.TryGetDataValue(data, "enabled", true);
+            MouseHitEnabled = ComponentHelper.TryGetDataValue(data, "mouse_hit_enabled", false);
         }
 
         public void InvokeCollisionEnter(Collision collision) => CollisionEnter?.Invoke(this, collision);
         public void InvokeCollisionStay(Collision collision) => CollisionStay?.Invoke(this, collision);
         public void InvokeCollisionExit(Collision collision) => CollisionExit?.Invoke(this, collision);
+        public void InvokeMouseButtonPress(WorldMouseButtonEventArgs args) => MouseButtonPress?.Invoke(this, args);
+        public void InvokeMouseButtonRelease(WorldMouseButtonEventArgs args) => MouseButtonRelease?.Invoke(this, args);
     }
 }

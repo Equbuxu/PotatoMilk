@@ -1,4 +1,5 @@
-﻿using PotatoMilk.Helpers;
+﻿using PotatoMilk.Containers;
+using PotatoMilk.Helpers;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace PotatoMilk.Components
         public event EventHandler<Collision> CollisionEnter;
         public event EventHandler<Collision> CollisionStay;
         public event EventHandler<Collision> CollisionExit;
+        public event EventHandler StateUpdated;
+        public event EventHandler<WorldMouseButtonEventArgs> MouseButtonPress;
+        public event EventHandler<WorldMouseButtonEventArgs> MouseButtonRelease;
 
         public List<Vector2f> Vertices
         {
@@ -28,6 +32,29 @@ namespace PotatoMilk.Components
                 RecalculateVertices(null, EventArgs.Empty);
             }
         }
+
+        private bool enabled;
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                enabled = value;
+                StateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private bool mouseHitEnabled;
+        public bool MouseHitEnabled
+        {
+            get => mouseHitEnabled;
+            set
+            {
+                mouseHitEnabled = value;
+                StateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public GameObject GameObject { get; private set; }
 
         public Vector2f Position => transform.Position;
@@ -38,6 +65,8 @@ namespace PotatoMilk.Components
                 throw new Exception("Already initialized");
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>() { new Vector2f() });
+            Enabled = ComponentHelper.TryGetDataValue(data, "enabled", true);
+            MouseHitEnabled = ComponentHelper.TryGetDataValue(data, "mouse_hit_enabled", false);
             GameObject = container;
             transform.StateUpdated += RecalculateVertices;
 
@@ -47,6 +76,8 @@ namespace PotatoMilk.Components
         public void InvokeCollisionEnter(Collision collision) => CollisionEnter?.Invoke(this, collision);
         public void InvokeCollisionStay(Collision collision) => CollisionStay?.Invoke(this, collision);
         public void InvokeCollisionExit(Collision collision) => CollisionExit?.Invoke(this, collision);
+        public void InvokeMouseButtonPress(WorldMouseButtonEventArgs args) => MouseButtonPress?.Invoke(this, args);
+        public void InvokeMouseButtonRelease(WorldMouseButtonEventArgs args) => MouseButtonRelease?.Invoke(this, args);
 
         public Vector2f GetSupportPoint(Vector2f direction)
         {
