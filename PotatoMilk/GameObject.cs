@@ -26,6 +26,8 @@ namespace PotatoMilk
         public bool Persistent { get; set; }
         public string Name { get; set; }
 
+        public Transform Transform { get; private set; }
+
         public T AddComponent<T>(Dictionary<string, object> data = null)
             where T : IComponent, new()
         {
@@ -71,6 +73,9 @@ namespace PotatoMilk
             namedComponents.Add(name, component);
             components.Add(component);
             component.Initialize(this, data);
+
+            if (component is Transform transform)
+                Transform = transform;
         }
     }
 }

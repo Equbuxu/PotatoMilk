@@ -10,7 +10,6 @@ namespace PotatoMilkDemo
     {
         private bool mouseHeld = false;
 
-        private Transform transform;
         private ConvexPolygonCollider collider;
         private Vector2f prevPos;
 
@@ -32,13 +31,12 @@ namespace PotatoMilkDemo
         public void MouseMoved(object sender, MouseMoveEventArgs e)
         {
             if (mouseHeld)
-                transform.Position = new(transform.Position.X + e.X - prevPos.X, transform.Position.Y + e.Y - prevPos.Y);
+                GameObject.Transform.Position = new(GameObject.Transform.Position.X + e.X - prevPos.X, GameObject.Transform.Position.Y + e.Y - prevPos.Y);
             prevPos = new Vector2f(e.X, e.Y);
         }
 
         public override void Start()
         {
-            transform = GameObject.GetComponent<Transform>();
             collider = GameObject.GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += (a, b) =>
