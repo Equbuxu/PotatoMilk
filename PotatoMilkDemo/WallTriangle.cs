@@ -10,8 +10,8 @@ namespace PotatoMilkDemo
         private CollisionCounter ctr;
         public override void Start()
         {
-            var renderer = GameObject.GetComponent<QuadRenderer>();
-            var collider = GameObject.GetComponent<ConvexPolygonCollider>();
+            var renderer = GetComponent<QuadRenderer>();
+            var collider = GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 64f);
             collider.CollisionExit += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 32f);

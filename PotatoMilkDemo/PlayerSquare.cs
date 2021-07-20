@@ -16,7 +16,6 @@ namespace PotatoMilkDemo
         private bool down = false;
         private bool left = false;
         private bool right = false;
-        private Transform transform;
         private Vector2f prevPos;
         private QuadRenderer renderer;
         private ConvexPolygonCollider collider;
@@ -24,10 +23,9 @@ namespace PotatoMilkDemo
         private Camera camera;
         public override void Start()
         {
-            transform = GameObject.GetComponent<Transform>();
-            renderer = GameObject.GetComponent<QuadRenderer>();
-            collider = GameObject.GetComponent<ConvexPolygonCollider>();
-            camera = GameObject.GetComponent<Camera>();
+            renderer = GetComponent<QuadRenderer>();
+            collider = GetComponent<ConvexPolygonCollider>();
+            camera = GetComponent<Camera>();
             collider.CollisionEnter += OnCollision;
             collider.CollisionStay += OnCollision;
             Debug.Write(ComponentHelper.TryGetDataValue<string>(data, "test", "failed"));
@@ -35,13 +33,13 @@ namespace PotatoMilkDemo
 
         private void OnCollision(object sender, Collision e)
         {
-            transform.Position += e.CalculatePushOutVector();
+            Transform.Position += e.CalculatePushOutVector();
         }
 
         public void Update()
         {
-            prevPos = transform.Position;
-            Vector2f newPos = transform.Position;
+            prevPos = Transform.Position;
+            Vector2f newPos = Transform.Position;
             if (up)
                 newPos += new Vector2f(0f, -2f);
             if (down)
@@ -50,7 +48,7 @@ namespace PotatoMilkDemo
                 newPos += new Vector2f(-2f, 0f);
             if (right)
                 newPos += new Vector2f(2f, 0f);
-            transform.Position = newPos;
+            Transform.Position = newPos;
         }
         public void KeyPressed(object sender, KeyEventArgs args)
         {

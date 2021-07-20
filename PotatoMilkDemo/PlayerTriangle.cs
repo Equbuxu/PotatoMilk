@@ -9,7 +9,6 @@ namespace PotatoMilkDemo
     [ComponentName("player_triangle_beh")]
     class PlayerTriangle : ObjectBehavior, IMouseMoveConsumer, IUpdatable
     {
-        private Transform transform;
         private QuadRenderer renderer;
         private CollisionCounter ctr;
         private Vector2f prevPos;
@@ -17,9 +16,8 @@ namespace PotatoMilkDemo
         private bool colliding = false;
         public override void Start()
         {
-            transform = GameObject.GetComponent<Transform>();
-            renderer = GameObject.GetComponent<QuadRenderer>();
-            var collider = GameObject.GetComponent<ConvexPolygonCollider>();
+            renderer = GetComponent<QuadRenderer>();
+            var collider = GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += OnCollision;
             collider.CollisionExit += OnCollisionExit;
@@ -36,7 +34,7 @@ namespace PotatoMilkDemo
         private void OnCollision(object sender, Collision e)
         {
             renderer.TextureTopLeft = new Vector2f(0f, 64f);
-            transform.Position = e.ApproximateCollisionPosition(prevPos);
+            Transform.Position = e.ApproximateCollisionPosition(prevPos);
             colliding = true;
         }
 
@@ -47,12 +45,12 @@ namespace PotatoMilkDemo
 
         public void Update()
         {
-            prevPos = transform.Position;
+            prevPos = Transform.Position;
             if (colliding)
                 return;
             if (Mouse.IsButtonPressed(Mouse.Button.Right))
             {
-                transform.Position += (mousePos - transform.Position) * 0.1f;
+                Transform.Position += (mousePos - Transform.Position) * 0.1f;
             }
         }
     }

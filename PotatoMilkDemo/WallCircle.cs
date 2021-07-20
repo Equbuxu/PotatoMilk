@@ -8,15 +8,12 @@ namespace PotatoMilkDemo
     [ComponentName("wall_circle_beh")]
     class WallCircle : ObjectBehavior, IUpdatable
     {
-        private Transform transform;
         private QuadRenderer renderer;
-        private bool mousePressed = false;
         private CircleCollider collider;
         private CollisionCounter ctr;
 
         public override void Start()
         {
-            transform = GameObject.GetComponent<Transform>();
             renderer = GameObject.GetComponent<QuadRenderer>();
             collider = GameObject.GetComponent<CircleCollider>();
 
@@ -30,7 +27,7 @@ namespace PotatoMilkDemo
         public void Update()
         {
             framec++;
-            transform.Position = new Vector2f((float)Math.Sin(framec / 30f) * 25f + 100f, 200f);
+            Transform.Position = new Vector2f((float)Math.Sin(framec / 30f) * 25f + 100f, 200f);
         }
     }
 }

@@ -31,13 +31,13 @@ namespace PotatoMilkDemo
         public void MouseMoved(object sender, MouseMoveEventArgs e)
         {
             if (mouseHeld)
-                GameObject.Transform.Position = new(GameObject.Transform.Position.X + e.X - prevPos.X, GameObject.Transform.Position.Y + e.Y - prevPos.Y);
+                Transform.Position = new(GameObject.Transform.Position.X + e.X - prevPos.X, GameObject.Transform.Position.Y + e.Y - prevPos.Y);
             prevPos = new Vector2f(e.X, e.Y);
         }
 
         public override void Start()
         {
-            collider = GameObject.GetComponent<ConvexPolygonCollider>();
+            collider = GetComponent<ConvexPolygonCollider>();
 
             collider.CollisionEnter += (a, b) =>
             {
