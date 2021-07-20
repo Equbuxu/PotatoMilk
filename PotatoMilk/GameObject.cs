@@ -10,7 +10,7 @@ namespace PotatoMilk
         public ObjectManager Manager
         {
             get => manager;
-            set
+            internal set
             {
                 if (manager is null)
                     manager = value;

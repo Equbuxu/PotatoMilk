@@ -21,6 +21,7 @@ namespace PotatoMilk.Components
         }
 
         public Transform Transform => GameObject.Transform;
+        public ObjectManager Manager => GameObject.Manager;
 
         public void Initialize(GameObject container, Dictionary<string, object> data)
         {

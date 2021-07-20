@@ -5,13 +5,15 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.ManagerComponents
 {
-    internal class DrawingManager
+    public class DrawingManager
     {
         private QuadBatchingManager quadBatchingManager;
         private PolygonBatchingManager polygonBatchingManager;
         private List<Camera> cameras = new();
 
-        public DrawingManager(QuadBatchingManager quadBatchingManager, PolygonBatchingManager polygonBatchingManager)
+        public IReadOnlyList<Camera> ActiveCameras { get => cameras; }
+
+        internal DrawingManager(QuadBatchingManager quadBatchingManager, PolygonBatchingManager polygonBatchingManager)
         {
             this.quadBatchingManager = quadBatchingManager;
             this.polygonBatchingManager = polygonBatchingManager;

@@ -12,9 +12,10 @@ namespace PotatoMilk
         private PolygonBatchingManager polygonBatchingManager = new();
         private EventDispatcher eventDispatcher;
         private BehaviorManager behaviorManager = new();
-        private DrawingManager drawingManager;
-        private MouseCollisionManager mouseCollisionManager;
-        public CollisionManager collisionManager { get; private set; } = new();
+        public DrawingManager DrawingManager { get; private set; }
+        public CollisionManager CollisionManager { get; private set; } = new();
+        public MouseCollisionManager MouseCollisionManager { get; private set; }
+
 
         public Storage Storage { get; private set; }
 
@@ -28,8 +29,8 @@ namespace PotatoMilk
         {
             eventDispatcher = new(window);
             objectFactory = new(this);
-            drawingManager = new(quadBatchingManager, polygonBatchingManager);
-            mouseCollisionManager = new(window);
+            DrawingManager = new(quadBatchingManager, polygonBatchingManager);
+            MouseCollisionManager = new(window);
         }
 
         public void LoadStorage(byte[] texturesZip, string texturesJson, string recipesJson, string roomsJson)
@@ -51,11 +52,11 @@ namespace PotatoMilk
         {
             quadBatchingManager.TrackComponent(component);
             polygonBatchingManager.TrackComponent(component);
-            collisionManager.TrackComponent(component);
+            CollisionManager.TrackComponent(component);
             eventDispatcher.TrackComponent(component);
             behaviorManager.TrackComponent(component);
-            drawingManager.TrackComponent(component);
-            mouseCollisionManager.TrackComponent(component);
+            DrawingManager.TrackComponent(component);
+            MouseCollisionManager.TrackComponent(component);
         }
 
         public void Destroy(GameObject obj)
@@ -104,11 +105,11 @@ namespace PotatoMilk
                 {
                     quadBatchingManager.UntrackComponent(cmp);
                     polygonBatchingManager.UntrackComponent(cmp);
-                    collisionManager.UntrackComponent(cmp);
+                    CollisionManager.UntrackComponent(cmp);
                     eventDispatcher.UntrackComponent(cmp);
                     behaviorManager.UntrackComponent(cmp);
-                    drawingManager.UntrackComponent(cmp);
-                    mouseCollisionManager.UntrackComponent(cmp);
+                    DrawingManager.UntrackComponent(cmp);
+                    MouseCollisionManager.UntrackComponent(cmp);
                 }
 
                 allObjects.Remove(obj);
@@ -120,14 +121,14 @@ namespace PotatoMilk
         {
             window.DispatchEvents();
             behaviorManager.Update();
-            collisionManager.CalculateCollisions();
+            CollisionManager.CalculateCollisions();
             TrackQueued();
             DestroyQueued();
         }
 
         public void Draw(RenderWindow window)
         {
-            drawingManager.Draw(window);
+            DrawingManager.Draw(window);
         }
     }
 }

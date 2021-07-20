@@ -9,6 +9,7 @@ namespace PotatoMilkDemo
     class WallSquare : ObjectBehavior, IMouseButtonConsumer, IMouseMoveConsumer, IKeyboardConsumer
     {
         private bool mouseHeld = false;
+        private Camera heldOn;
 
         private ConvexPolygonCollider collider;
         private Vector2f prevPos;
@@ -30,9 +31,12 @@ namespace PotatoMilkDemo
 
         public void MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            if (mouseHeld)
-                Transform.Position = new(GameObject.Transform.Position.X + e.X - prevPos.X, GameObject.Transform.Position.Y + e.Y - prevPos.Y);
-            prevPos = new Vector2f(e.X, e.Y);
+
+            if (!mouseHeld)
+                return;
+            Vector2f transformed = Manager.MouseCollisionManager.ScreenToWorldCoordinates(heldOn, new Vector2i(e.X, e.Y));
+            Transform.Position = new(GameObject.Transform.Position.X + transformed.X - prevPos.X, GameObject.Transform.Position.Y + transformed.Y - prevPos.Y);
+            prevPos = transformed;
         }
 
         public override void Start()
@@ -44,7 +48,12 @@ namespace PotatoMilkDemo
                 if ((b.Other as IComponent).GameObject.Name == "player_triangle")
                     GameObject.Manager.Destroy(GameObject);
             };
-            collider.MouseButtonPress += (a, b) => mouseHeld = true;
+            collider.MouseButtonPress += (a, b) =>
+            {
+                heldOn = b.camera;
+                mouseHeld = true;
+                prevPos = b.worldPos;
+            };
         }
 
         public void TextEntered(object sender, TextEventArgs args) { }
