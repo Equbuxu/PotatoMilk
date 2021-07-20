@@ -24,6 +24,7 @@ namespace PotatoMilk
         private List<IComponent> components = new();
         public IReadOnlyList<IComponent> Components => components.AsReadOnly();
         public bool Persistent { get; set; }
+        public string Type { get; internal set; }
         public string Name { get; set; }
 
         public Transform Transform { get; private set; }

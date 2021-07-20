@@ -21,6 +21,7 @@ namespace PotatoMilk.Components
             obj.Manager = manager;
             obj.Persistent = recipe.persistent ?? false;
             obj.Name = recipe.name;
+            obj.Type = recipe.type;
 
             foreach (var keyvalue in recipe.componentData)
             {

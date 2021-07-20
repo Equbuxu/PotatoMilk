@@ -45,7 +45,7 @@ namespace PotatoMilkDemo
 
             collider.CollisionEnter += (a, b) =>
             {
-                if ((b.Other as IComponent).GameObject.Name == "player_triangle")
+                if ((b.Other as IComponent).GameObject.Type == "player_triangle")
                     GameObject.Manager.Destroy(GameObject);
             };
             collider.MouseButtonPress += (a, b) =>

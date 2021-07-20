@@ -1,6 +1,7 @@
 ﻿{
   "player_square": {
     "persistent": true,
+    "name": "player",
     "transform": {},
 
     "quad_renderer": {
@@ -89,6 +90,7 @@
 
 
   "polygon": {
+    "name": "polygon_shape",
     "transform": {},
 
     "polygon_renderer": {

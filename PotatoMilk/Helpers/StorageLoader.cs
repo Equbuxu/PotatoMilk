@@ -44,8 +44,8 @@ namespace PotatoMilk.Helpers
             foreach (var recipeJson in parsed.RootElement.EnumerateObject())
             {
                 var recipe = ParseRecipe(recipeJson.Value, textures);
-                recipe.name = recipeJson.Name;
-                result.Add(recipe.name, recipe);
+                recipe.type = recipeJson.Name;
+                result.Add(recipe.type, recipe);
             }
             return result;
         }
@@ -61,8 +61,8 @@ namespace PotatoMilk.Helpers
                 var roomRecipesJson = keyvalue.Value.GetProperty("recipes");
                 foreach (var roomRecipe in roomRecipesJson.EnumerateArray())
                 {
-                    string recipeName = roomRecipe.GetProperty("name").GetString();
-                    var originalRecipe = recipes[recipeName];
+                    string recipeType = roomRecipe.GetProperty("type").GetString();
+                    var originalRecipe = recipes[recipeType];
                     ObjectRecipe finalRecipe = new ObjectRecipe(originalRecipe);
                     if (roomRecipe.TryGetProperty("overrides", out JsonElement recipeOverridesJson))
                     {
@@ -84,6 +84,11 @@ namespace PotatoMilk.Helpers
                 if (component.Name == "persistent")
                 {
                     recipe.persistent = component.Value.GetBoolean();
+                    continue;
+                }
+                else if (component.Name == "name")
+                {
+                    recipe.name = component.Value.GetString();
                     continue;
                 }
 

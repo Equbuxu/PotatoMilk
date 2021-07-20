@@ -5,12 +5,14 @@ namespace PotatoMilk
     public class ObjectRecipe
     {
         public Dictionary<string, Dictionary<string, object>> componentData;
+        public string type;
         public string name;
         public bool? persistent;
 
         public ObjectRecipe()
         {
             componentData = new();
+            type = null;
             name = null;
             persistent = null;
         }
@@ -20,6 +22,7 @@ namespace PotatoMilk
         /// </summary>
         public ObjectRecipe(ObjectRecipe original)
         {
+            type = original.type;
             name = original.name;
             persistent = original.persistent;
             componentData = new();
@@ -39,8 +42,9 @@ namespace PotatoMilk
         /// </summary>
         public void OverrideFrom(ObjectRecipe other)
         {
-            name = other.name ?? name;
+            type = other.type ?? type;
             persistent = other.persistent ?? persistent;
+            name = other.name ?? name;
             foreach (var component in other.componentData)
             {
                 if (!componentData.ContainsKey(component.Key))

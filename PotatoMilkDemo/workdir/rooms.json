@@ -2,7 +2,7 @@
   "room1": {
     "recipes": [
       {
-        "name": "player_square",
+        "type": "player_square",
         "overrides": {
           "transform": {
             "position": {
@@ -13,7 +13,7 @@
         }
       },
       {
-        "name": "player_triangle",
+        "type": "player_triangle",
         "overrides": {
           "transform": {
             "position": {
@@ -24,8 +24,9 @@
         }
       },
       {
-        "name": "polygon",
+        "type": "polygon",
         "overrides": {
+          "name": "polygon_override",
           "transform": {
             "position": {
               "type": "Vector2f",
@@ -35,7 +36,7 @@
         }
       },
       {
-        "name": "wall_circle",
+        "type": "wall_circle",
         "overrides": {
           "transform": {
             "position": {
@@ -46,7 +47,7 @@
         }
       },
       {
-        "name": "wall_square",
+        "type": "wall_square",
         "overrides": {
           "transform": {
             "position": {
@@ -57,7 +58,7 @@
         }
       },
       {
-        "name": "wall_triangle",
+        "type": "wall_triangle",
         "overrides": {
           "transform": {
             "position": {
@@ -68,7 +69,7 @@
         }
       },
       {
-        "name": "camera",
+        "type": "camera",
         "overrides": {
           "transform": {
             "position": {
