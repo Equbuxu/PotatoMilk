@@ -36,6 +36,17 @@
         }
       },
       {
+        "type": "broken_polygon",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 200, 200 ]
+            }
+          }
+        }
+      },
+      {
         "type": "wall_circle",
         "overrides": {
           "transform": {
@@ -64,6 +75,33 @@
             "position": {
               "type": "Vector2f",
               "value": [ 332, 300 ]
+            }
+          }
+        }
+      },
+      {
+        "type": "camera",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 320, 240 ]
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  "room2": {
+    "recipes": [
+      {
+        "type": "broken_polygon",
+        "overrides": {
+          "transform": {
+            "position": {
+              "type": "Vector2f",
+              "value": [ 0, 0 ]
             }
           }
         }

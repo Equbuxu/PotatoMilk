@@ -26,7 +26,7 @@ namespace PotatoMilk.Components
         }
 
         private List<(Vector2f, Vector2f, Vector2f)> triangles = new();
-        public IReadOnlyList<(Vector2f, Vector2f, Vector2f)> Triangles => triangles;
+        internal IReadOnlyList<(Vector2f, Vector2f, Vector2f)> Triangles => triangles;
 
         private Color color;
         public Color Color
@@ -68,7 +68,8 @@ namespace PotatoMilk.Components
                 while (current != transformed.Last)
                 {
                     var fromPrev = (current.Value - current.Previous.Value);
-                    if (new Vector2f(-fromPrev.Y, fromPrev.X).Dot(current.Value - current.Next.Value) < 0)
+                    if (new Vector2f(-fromPrev.Y, fromPrev.X).Dot(current.Value - current.Next.Value) < 0 &&
+                        !TriagleContainsAnyPoint(current.Previous.Value, current.Value, current.Next.Value, transformed))
                     {
                         convex = current;
                         break;
@@ -81,6 +82,17 @@ namespace PotatoMilk.Components
                 transformed.Remove(convex);
             }
             StateUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool TriagleContainsAnyPoint(Vector2f a, Vector2f b, Vector2f c, LinkedList<Vector2f> points)
+        {
+            foreach (var point in points)
+            {
+                if (PointIsToTheLeft(a, b, point) && PointIsToTheLeft(b, c, point) && PointIsToTheLeft(c, a, point))
+                    return true;
+            }
+            return false;
+            bool PointIsToTheLeft(Vector2f a, Vector2f b, Vector2f point) => (b - a).TurnLeft90().Dot(point - a) > 0;
         }
     }
 }

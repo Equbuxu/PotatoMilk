@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoMilk", "PotatoMilk\PotatoMilk.csproj", "{88732285-CB5F-4912-9D4F-39EE0A11CE45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotatoMilkDemo", "PotatoMilkDemo\PotatoMilkDemo.csproj", "{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoMilkDemo", "PotatoMilkDemo\PotatoMilkDemo.csproj", "{84B25D23-FC16-49E4-8FC0-7541B84BCF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

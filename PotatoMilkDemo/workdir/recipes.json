@@ -126,6 +126,26 @@
     }
   },
 
+  "broken_polygon": {
+    "transform": {},
+    "polygon_renderer": {
+      "color": {
+        "type": "Color",
+        "value": [ 1, 0, 1 ]
+      },
+      "vertices": {
+        "type": "List<Vector2f>",
+        "value": [
+          [ 20, 0 ],
+          [ 0, 40 ],
+          [ -20, 0 ],
+          [ -10, 0 ],
+          [ 0, 30 ],
+          [ 10, 0 ]
+        ]
+      }
+    }
+  },
 
   "wall_circle": {
     "transform": {},

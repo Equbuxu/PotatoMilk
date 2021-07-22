@@ -3,7 +3,9 @@ using PotatoMilk.Helpers;
 using PotatoMilk.ManagerComponents;
 using SFML.Graphics;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("PotatoMilkTests")]
 namespace PotatoMilk
 {
     public class ObjectManager

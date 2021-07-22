@@ -40,7 +40,7 @@ namespace PotatoMilkDemo
 
         public void MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            mousePos = new Vector2f(e.X, e.Y);
+            mousePos = Manager.MouseCollisionManager.ScreenToWorldCoordinates(Manager.DrawingManager.ActiveCameras[^1], new Vector2i(e.X, e.Y));
         }
 
         public void Update()
