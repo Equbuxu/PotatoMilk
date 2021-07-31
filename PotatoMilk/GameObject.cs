@@ -19,14 +19,12 @@ namespace PotatoMilk
             }
         }
 
-
         private Dictionary<string, IComponent> namedComponents = new();
         private List<IComponent> components = new();
         public IReadOnlyList<IComponent> Components => components.AsReadOnly();
         public bool Persistent { get; set; }
         public string Type { get; internal set; }
         public string Name { get; set; }
-
         public Transform Transform { get; private set; }
 
         public T AddComponent<T>(Dictionary<string, object> data = null)
@@ -39,12 +37,18 @@ namespace PotatoMilk
             return component;
         }
 
+        /// <summary>
+        /// Used to add scripts on creation, as they can't be created with new
+        /// </summary>
         internal void AddComponentNoTracking(Type type, IComponent preconstructed, Dictionary<string, object> data)
         {
             string name = type.Name;
             AppendNewComponent(preconstructed, name, data);
         }
 
+        /// <summary>
+        /// Used to add new components on creation, as they should only start working (getting tracked) on the next tick
+        /// </summary>
         internal void AddComponentNoTracking<T>(Dictionary<string, object> data = null)
             where T : IComponent, new()
         {
