@@ -96,15 +96,18 @@
   "room2": {
     "recipes": [
       {
-        "type": "broken_polygon",
+        "type": "player_triangle",
         "overrides": {
           "transform": {
             "position": {
               "type": "Vector2f",
-              "value": [ 0, 0 ]
+              "value": [ 100, 100 ]
             }
           }
         }
+      },
+      {
+        "type": "wall_circle"
       },
       {
         "type": "camera",
@@ -112,7 +115,7 @@
           "transform": {
             "position": {
               "type": "Vector2f",
-              "value": [ 320, 240 ]
+              "value": [ 0, 0 ]
             }
           }
         }

@@ -28,7 +28,7 @@ namespace PotatoMilk.Components
                 var data = keyvalue.Value;
                 switch (keyvalue.Key)
                 {
-                    case "circle_collider": obj.AddComponentNoTracking<CircleCollider>(data); break;
+                    case "ellipse_collider": obj.AddComponentNoTracking<EllipseCollider>(data); break;
                     case "convex_polygon_collider": obj.AddComponentNoTracking<ConvexPolygonCollider>(data); break;
                     case "polygon_renderer": obj.AddComponentNoTracking<PolygonRenderer>(data); break;
                     case "quad_renderer": obj.AddComponentNoTracking<QuadRenderer>(data); break;

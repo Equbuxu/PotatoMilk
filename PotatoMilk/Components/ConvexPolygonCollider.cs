@@ -103,7 +103,7 @@ namespace PotatoMilk.Components
             }
             for (int i = 0; i < vertices.Count; i++)
             {
-                transformedVertices[i] = vertices[i] + transform.Position;
+                transformedVertices[i] = transform.TransformPoint(vertices[i]);
             }
             for (int i = 0; i < transformedVertices.Count; i++)
             {

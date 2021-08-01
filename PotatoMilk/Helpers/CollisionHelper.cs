@@ -48,6 +48,8 @@ namespace PotatoMilk.Helpers
         internal static (Vector2f, Vector2f, Vector2f)? CheckPairCollision(ICollider a, ICollider b)
         {
             var direction = b.Position - a.Position;
+            if (direction.X == 0 && direction.Y == 0)
+                direction = new Vector2f(1f, 0f);
             var firstVertex = a.GetSupportPoint(direction) - b.GetSupportPoint(direction * -1);
             var secondVertex = a.GetSupportPoint(direction * -1) - b.GetSupportPoint(direction);
             var perp = (secondVertex - firstVertex).Perp(-firstVertex);

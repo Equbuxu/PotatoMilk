@@ -57,7 +57,7 @@ namespace PotatoMilk.Components
             LinkedList<Vector2f> transformed = new();
             for (int i = 0; i < vertices.Count; i++)
             {
-                transformed.AddLast(vertices[i] + transform.Position);
+                transformed.AddLast(transform.TransformPoint(vertices[i]));
             }
 
             triangles.Clear();

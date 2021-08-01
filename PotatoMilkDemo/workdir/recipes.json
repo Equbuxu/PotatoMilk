@@ -38,7 +38,7 @@
       },
       "render_priority": {
         "type": "int",
-        "value": 1
+        "value": -1
       }
     },
 
@@ -53,7 +53,16 @@
 
   "player_triangle": {
     "persistent": true,
-    "transform": {},
+    "transform": {
+      "origin": {
+        "type": "Vector2f",
+        "value": [ 16, 16 ]
+      },
+      "scale": {
+        "type": "Vector2f",
+        "value": [ 1, 2 ]
+      }
+    },
 
     "quad_renderer": {
       "size": {
@@ -127,7 +136,16 @@
   },
 
   "broken_polygon": {
-    "transform": {},
+    "transform": {
+      "scale": {
+        "type": "Vector2f",
+        "value": [ 10, 10 ]
+      },
+      "rotation": {
+        "type": "float",
+        "value": 1.57079
+      }
+    },
     "polygon_renderer": {
       "color": {
         "type": "Color",
@@ -136,19 +154,32 @@
       "vertices": {
         "type": "List<Vector2f>",
         "value": [
-          [ 20, 0 ],
-          [ 0, 40 ],
-          [ -20, 0 ],
-          [ -10, 0 ],
-          [ 0, 30 ],
-          [ 10, 0 ]
+          [ 2, 0 ],
+          [ 0, 4 ],
+          [ -2, 0 ],
+          [ -1, 0 ],
+          [ 0, 3 ],
+          [ 1, 0 ]
         ]
       }
     }
   },
 
   "wall_circle": {
-    "transform": {},
+    "transform": {
+      "scale": {
+        "type": "Vector2f",
+        "value": [ 1, 3 ]
+      },
+      "origin": {
+        "type": "Vector2f",
+        "value": [ 16, 16 ]
+      },
+      "rotation": {
+        "type": "float",
+        "value": 0.7853982
+      }
+    },
 
     "quad_renderer": {
       "size": {
@@ -169,10 +200,14 @@
       }
     },
 
-    "circle_collider": {
-      "radius": {
+    "ellipse_collider": {
+      "radii": {
+        "type": "Vector2f",
+        "value": [ 16, 48 ]
+      },
+      "rotation": {
         "type": "float",
-        "value": 16
+        "value": 0.7853982
       }
     },
 

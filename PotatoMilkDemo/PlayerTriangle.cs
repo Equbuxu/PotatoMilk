@@ -7,7 +7,7 @@ using SFML.Window;
 namespace PotatoMilkDemo
 {
     [ComponentName("player_triangle_beh")]
-    class PlayerTriangle : ObjectBehavior, IMouseMoveConsumer, IUpdatable
+    class PlayerTriangle : ObjectBehavior, IMouseMoveConsumer, IUpdatable, IKeyboardConsumer
     {
         private QuadRenderer renderer;
         private CollisionCounter ctr;
@@ -46,6 +46,10 @@ namespace PotatoMilkDemo
         public void Update()
         {
             prevPos = Transform.Position;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+                Transform.Rotation += 0.1f;
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+                Transform.Rotation -= 0.1f;
             if (colliding)
                 return;
             if (Mouse.IsButtonPressed(Mouse.Button.Right))
@@ -53,5 +57,17 @@ namespace PotatoMilkDemo
                 Transform.Position += (mousePos - Transform.Position) * 0.1f;
             }
         }
+
+        public void KeyPressed(object sender, KeyEventArgs args) { }
+
+        public void KeyReleased(object sender, KeyEventArgs args)
+        {
+            if (args.Code == Keyboard.Key.Add)
+                Transform.Scale = new Vector2f(Transform.Scale.X + 0.1f, Transform.Scale.Y + 0.1f);
+            else if (args.Code == Keyboard.Key.Subtract)
+                Transform.Scale = new Vector2f(Transform.Scale.X - 0.1f, Transform.Scale.Y - 0.1f);
+        }
+
+        public void TextEntered(object sender, TextEventArgs args) { }
     }
 }

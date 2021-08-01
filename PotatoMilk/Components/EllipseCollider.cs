@@ -6,13 +6,14 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
-    public class CircleCollider : IComponent, ICollider
+    public class EllipseCollider : IComponent, ICollider
     {
         public GameObject GameObject { get; private set; }
         private Transform transform;
         public Vector2f Position => transform.Position;
 
-        public float Radius { get; set; }
+        public Vector2f Radii { get; set; }
+        public float Rotation { get; set; }
 
         private bool enabled;
         public bool Enabled
@@ -45,7 +46,10 @@ namespace PotatoMilk.Components
 
         public Vector2f GetSupportPoint(Vector2f direction)
         {
-            return direction.Norm() * Radius + Position + new Vector2f(Radius, Radius);
+            Vector2f unrotate = direction.Rotate(-Rotation);
+            Vector2f scaled = new Vector2f(unrotate.X * Radii.X, unrotate.Y * Radii.Y).Norm();
+            Vector2f onEllipse = new Vector2f(scaled.X * Radii.X, scaled.Y * Radii.Y).Rotate(Rotation);
+            return onEllipse + transform.Position;
         }
 
         public void Initialize(GameObject container, Dictionary<string, object> data)
@@ -55,9 +59,19 @@ namespace PotatoMilk.Components
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             GameObject = container;
 
-            Radius = ComponentHelper.TryGetDataValue(data, "radius", 32f);
+            Radii = ComponentHelper.TryGetDataValue(data, "radii", new Vector2f(32f, 32f));
+            Rotation = ComponentHelper.TryGetDataValue(data, "rotation", 0f);
             Enabled = ComponentHelper.TryGetDataValue(data, "enabled", true);
             MouseHitEnabled = ComponentHelper.TryGetDataValue(data, "mouse_hit_enabled", false);
+
+
+            List<Vector2f> points = new();
+            for (int i = 0; i < 16; i++)
+            {
+                float angle = i / 8f * (float)Math.PI;
+                points.Add(GetSupportPoint(new Vector2f((float)Math.Cos(angle), (float)Math.Sin(angle))));
+            }
+
         }
 
         public void InvokeCollisionEnter(Collision collision) => CollisionEnter?.Invoke(this, collision);

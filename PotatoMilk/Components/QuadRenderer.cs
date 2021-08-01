@@ -60,10 +60,10 @@ namespace PotatoMilk.Components
         {
             get
             {
-                return (transform.Position,
-                        new Vector2f(transform.Position.X, transform.Position.Y + Size.Y),
-                        transform.Position + Size,
-                        new Vector2f(transform.Position.X + Size.X, transform.Position.Y));
+                return (transform.TransformPoint(new Vector2f()),
+                        transform.TransformPoint(new Vector2f(0, Size.Y)),
+                        transform.TransformPoint(Size),
+                        transform.TransformPoint(new Vector2f(Size.X, 0)));
             }
         }
 
@@ -86,5 +86,8 @@ namespace PotatoMilk.Components
             TextureTopLeft = ComponentHelper.TryGetDataValue(data, "texture_top_left", new Vector2f());
             TextureSize = ComponentHelper.TryGetDataValue(data, "texture_size", new Vector2f());
         }
+
+
+
     }
 }

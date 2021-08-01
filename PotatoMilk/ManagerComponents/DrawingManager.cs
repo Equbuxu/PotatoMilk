@@ -52,6 +52,7 @@ namespace PotatoMilk.ManagerComponents
                 quadBatchingManager.Draw(window);
                 polygonBatchingManager.Draw(window);
             }
+
             window.Display();
         }
     }

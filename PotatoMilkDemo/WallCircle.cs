@@ -9,13 +9,13 @@ namespace PotatoMilkDemo
     class WallCircle : ObjectBehavior, IUpdatable
     {
         private QuadRenderer renderer;
-        private CircleCollider collider;
+        private EllipseCollider collider;
         private CollisionCounter ctr;
 
         public override void Start()
         {
             renderer = GameObject.GetComponent<QuadRenderer>();
-            collider = GameObject.GetComponent<CircleCollider>();
+            collider = GameObject.GetComponent<EllipseCollider>();
 
             collider.CollisionEnter += (a, b) => renderer.TextureTopLeft = new Vector2f(32f, 0f);
             collider.CollisionExit += (a, b) => renderer.TextureTopLeft = new Vector2f(0f, 0f);
