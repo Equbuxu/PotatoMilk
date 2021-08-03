@@ -28,10 +28,10 @@ namespace PotatoMilk
         public Transform Transform { get; private set; }
 
         public T AddComponent<T>(Dictionary<string, object> data = null)
-            where T : IComponent, new()
+            where T : IComponent
         {
-            T component = new();
-            string name = typeof(T).Name;
+            string name = manager.ObjectFactory.GetTypeName<T>();
+            T component = (T)manager.ObjectFactory.CreateComponent(name);
             AppendNewComponent(component, name, data);
             Manager?.TrackComponent(component);
             return component;
@@ -40,19 +40,25 @@ namespace PotatoMilk
         /// <summary>
         /// Used to add new components on creation, as they should only start working (getting tracked) on the next tick and can't be created with new
         /// </summary>
-        internal void AddComponentNoTracking(Type type, IComponent preconstructed, Dictionary<string, object> data)
+        internal void AddComponentNoTracking(string name, IComponent preconstructed, Dictionary<string, object> data)
         {
-            string name = type.Name;
             AppendNewComponent(preconstructed, name, data);
         }
 
         public T GetComponent<T>()
             where T : IComponent
         {
-            string name = typeof(T).Name;
+            string name = manager.ObjectFactory.GetTypeName<T>();
             if (!namedComponents.ContainsKey(name))
                 throw new Exception("The object does not have the component \"" + name + "\"");
             return (T)namedComponents[name];
+        }
+
+        public IComponent GetComponent(string name)
+        {
+            if (!namedComponents.ContainsKey(name))
+                throw new Exception("The object does not have the component \"" + name + "\"");
+            return namedComponents[name];
         }
 
         public bool HasComponent(string name)

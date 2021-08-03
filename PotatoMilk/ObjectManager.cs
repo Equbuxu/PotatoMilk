@@ -23,7 +23,7 @@ namespace PotatoMilk
 
         public Storage Storage { get; private set; }
 
-        private ObjectFactory objectFactory;
+        internal ObjectFactory ObjectFactory { get; private set; }
         private HashSet<GameObject> toTrack = new();
 
         private HashSet<GameObject> allObjects = new();
@@ -32,7 +32,7 @@ namespace PotatoMilk
         public ObjectManager(RenderWindow window)
         {
             eventDispatcher = new(window);
-            objectFactory = new(this);
+            ObjectFactory = new(this);
             DrawingManager = new(quadBatchingManager, polygonBatchingManager);
             MouseCollisionManager = new(window);
         }
@@ -47,7 +47,7 @@ namespace PotatoMilk
 
         public GameObject Instantiate(ObjectRecipe recipe)
         {
-            GameObject obj = objectFactory.CreateObject(recipe, this);
+            GameObject obj = ObjectFactory.CreateObject(recipe, this);
             toTrack.Add(obj);
             return obj;
         }

@@ -8,12 +8,15 @@ namespace PotatoMilk.Components
     {
         private ObjectManager manager;
         private Dictionary<string, Type> typesCache = new();
+        private Dictionary<Type, string> typesCacheBackwards = new();
 
         public ObjectFactory(ObjectManager manager)
         {
             this.manager = manager;
 
             typesCache = CollectCustomTypes();
+            foreach (var keyvalue in typesCache)
+                typesCacheBackwards.Add(keyvalue.Value, keyvalue.Key);
         }
         public GameObject CreateObject(ObjectRecipe recipe, ObjectManager manager)
         {
@@ -25,19 +28,28 @@ namespace PotatoMilk.Components
 
             foreach (var keyvalue in recipe.componentData)
             {
-                var data = keyvalue.Value;
-                AddComponentToObject(obj, data, keyvalue.Key);
+                var component = CreateComponent(keyvalue.Key);
+                obj.AddComponentNoTracking(keyvalue.Key, component, keyvalue.Value);
             }
             return obj;
         }
 
-        private void AddComponentToObject(GameObject obj, Dictionary<string, object> data, string name)
+        public IComponent CreateComponent(string name)
         {
             if (!typesCache.ContainsKey(name))
                 throw new Exception("Unknown component type: " + name);
             Type type = typesCache[name];
             var instance = (IComponent)Activator.CreateInstance(type);
-            obj.AddComponentNoTracking(type, instance, data);
+            return instance;
+        }
+
+        public string GetTypeName<T>()
+            where T : IComponent
+        {
+            var type = typeof(T);
+            if (!typesCacheBackwards.ContainsKey(type))
+                throw new Exception("Unknown component type: " + type);
+            return typesCacheBackwards[type];
         }
 
         private Dictionary<string, Type> CollectCustomTypes()
