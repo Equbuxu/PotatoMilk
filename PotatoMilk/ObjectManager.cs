@@ -131,11 +131,11 @@ namespace PotatoMilk
 
         public void Update(RenderWindow window)
         {
+            TrackQueued();
+            DestroyQueued();
             window.DispatchEvents();
             behaviorManager.Update();
             CollisionManager.CalculateCollisions();
-            TrackQueued();
-            DestroyQueued();
         }
 
         public void Draw(RenderWindow window)
