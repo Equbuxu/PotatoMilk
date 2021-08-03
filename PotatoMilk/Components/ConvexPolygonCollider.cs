@@ -23,13 +23,14 @@ namespace PotatoMilk.Components
 
         public List<Vector2f> Vertices
         {
+            get => vertices?.Select(a => a).ToList();
             set
             {
                 if (value == null)
                     throw new Exception("Value was null");
                 if (value.Count < 1)
                     throw new Exception($"A {nameof(ConvexPolygonCollider)} must have at least one point");
-                vertices = value.Select(a => a).ToList(); ;
+                vertices = value.Select(a => a).ToList();
                 RecalculateVertices(null, EventArgs.Empty);
             }
         }

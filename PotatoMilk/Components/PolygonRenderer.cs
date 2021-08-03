@@ -18,6 +18,7 @@ namespace PotatoMilk.Components
         private List<Vector2f> vertices;
         public List<Vector2f> Vertices
         {
+            get => vertices?.Select(a => a).ToList();
             set
             {
                 if (value == null)
