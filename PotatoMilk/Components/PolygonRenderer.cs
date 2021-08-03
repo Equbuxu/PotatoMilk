@@ -28,6 +28,8 @@ namespace PotatoMilk.Components
             }
         }
 
+
+        private List<(Vector2f, Vector2f, Vector2f)> rawTriangles = new();
         private List<(Vector2f, Vector2f, Vector2f)> triangles = new();
         internal IReadOnlyList<(Vector2f, Vector2f, Vector2f)> Triangles => triangles;
 
@@ -50,7 +52,7 @@ namespace PotatoMilk.Components
 
             transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(PolygonRenderer));
             GameObject = container;
-            transform.StateUpdated += TriangulateVertices;
+            transform.StateUpdated += TransformTriangles;
 
             Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>());
             Color = ComponentHelper.TryGetDataValue(data, "color", Color.Red);
@@ -61,10 +63,10 @@ namespace PotatoMilk.Components
             LinkedList<Vector2f> transformed = new();
             for (int i = 0; i < vertices.Count; i++)
             {
-                transformed.AddLast(transform.TransformPoint(vertices[i]));
+                transformed.AddLast(vertices[i]);
             }
 
-            triangles.Clear();
+            rawTriangles.Clear();
             while (transformed.Count > 2)
             {
                 var current = transformed.First.Next;
@@ -82,10 +84,20 @@ namespace PotatoMilk.Components
                 }
                 if (convex == null)
                     throw new Exception("Vertices are not in CW (assuming Y pointing downwards) order");
-                triangles.Add((convex.Previous.Value, convex.Value, convex.Next.Value));
+                rawTriangles.Add((convex.Previous.Value, convex.Value, convex.Next.Value));
                 transformed.Remove(convex);
             }
+            TransformTriangles(null, null);
             StateUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void TransformTriangles(object sender, EventArgs args)
+        {
+            triangles.Clear();
+            foreach (var vectors in rawTriangles)
+            {
+                triangles.Add((transform.TransformPoint(vectors.Item1), transform.TransformPoint(vectors.Item2), transform.TransformPoint(vectors.Item3)));
+            }
         }
 
         private bool TriagleContainsAnyPoint(Vector2f a, Vector2f b, Vector2f c, LinkedList<Vector2f> points)
