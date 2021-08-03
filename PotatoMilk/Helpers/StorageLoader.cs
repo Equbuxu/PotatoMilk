@@ -118,6 +118,7 @@ namespace PotatoMilk.Helpers
             {
                 "float" => (name, (float)value.GetDouble()),
                 "int" => (name, value.GetInt32()),
+                "bool" => (name, value.GetBoolean()),
                 "string" => (name, value.GetString()),
                 "Vector2f" => (name, ConvertVector2f(value)),
                 "Color" => (name, ConvertColor(value)),
