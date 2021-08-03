@@ -88,7 +88,6 @@ namespace PotatoMilk.Components
                 transformed.Remove(convex);
             }
             TransformTriangles(null, null);
-            StateUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private void TransformTriangles(object sender, EventArgs args)
@@ -98,6 +97,7 @@ namespace PotatoMilk.Components
             {
                 triangles.Add((transform.TransformPoint(vectors.Item1), transform.TransformPoint(vectors.Item2), transform.TransformPoint(vectors.Item3)));
             }
+            StateUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private bool TriagleContainsAnyPoint(Vector2f a, Vector2f b, Vector2f c, LinkedList<Vector2f> points)
