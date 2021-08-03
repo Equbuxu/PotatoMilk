@@ -7,9 +7,11 @@ using System.Linq;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("polygon_renderer")]
     public class PolygonRenderer : IComponent, IStateful
     {
         public GameObject GameObject { get; private set; }
+        public string TypeName { get; private set; }
         public event EventHandler StateUpdated;
 
         private Transform transform;
@@ -39,10 +41,11 @@ namespace PotatoMilk.Components
             }
         }
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
 
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             GameObject = container;

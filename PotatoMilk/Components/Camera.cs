@@ -6,8 +6,10 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("camera")]
     public class Camera : IComponent, IStateful
     {
+        public string TypeName { get; private set; }
         public GameObject GameObject { get; private set; }
         internal View SFMLView { get; private set; } = new();
 
@@ -47,10 +49,11 @@ namespace PotatoMilk.Components
 
         public event EventHandler StateUpdated;
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             GameObject = container;
 

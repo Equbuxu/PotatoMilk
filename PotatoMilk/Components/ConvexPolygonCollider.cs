@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("convex_polygon_collider")]
     public class ConvexPolygonCollider : IComponent, ICollider
     {
         private Transform transform;
@@ -55,14 +56,16 @@ namespace PotatoMilk.Components
             }
         }
 
+        public string TypeName { get; private set; }
         public GameObject GameObject { get; private set; }
 
         public Vector2f Position => transform.Position;
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>() { new Vector2f() });
             Enabled = ComponentHelper.TryGetDataValue(data, "enabled", true);

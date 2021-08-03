@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("transform")]
     public class Transform : IComponent, IStateful
     {
         private Vector2f position;
@@ -52,13 +53,15 @@ namespace PotatoMilk.Components
         }
 
         public GameObject GameObject { get; private set; }
+        public string TypeName { get; private set; }
 
         public event EventHandler StateUpdated;
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
             GameObject = container;
             Position = ComponentHelper.TryGetDataValue(data, "position", new Vector2f());
             Scale = ComponentHelper.TryGetDataValue(data, "scale", new Vector2f(1f, 1f));

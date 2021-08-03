@@ -6,7 +6,6 @@ using System.IO;
 
 namespace PotatoMilkDemo
 {
-
     class Program
     {
         static ObjectManager manager;

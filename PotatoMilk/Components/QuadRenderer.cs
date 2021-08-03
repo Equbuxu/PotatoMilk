@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("quad_renderer")]
     public class QuadRenderer : IComponent, IStateful
     {
         private Transform transform;
-
+        public string TypeName { get; private set; }
         public event EventHandler StateUpdated;
 
         private Vector2f size;
@@ -70,10 +71,11 @@ namespace PotatoMilk.Components
         public GameObject GameObject { get; private set; }
 
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             GameObject = container;
             transform.StateUpdated += (sender, args) =>

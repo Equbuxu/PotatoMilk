@@ -38,23 +38,12 @@ namespace PotatoMilk
         }
 
         /// <summary>
-        /// Used to add scripts on creation, as they can't be created with new
+        /// Used to add new components on creation, as they should only start working (getting tracked) on the next tick and can't be created with new
         /// </summary>
         internal void AddComponentNoTracking(Type type, IComponent preconstructed, Dictionary<string, object> data)
         {
             string name = type.Name;
             AppendNewComponent(preconstructed, name, data);
-        }
-
-        /// <summary>
-        /// Used to add new components on creation, as they should only start working (getting tracked) on the next tick
-        /// </summary>
-        internal void AddComponentNoTracking<T>(Dictionary<string, object> data = null)
-            where T : IComponent, new()
-        {
-            T component = new();
-            string name = typeof(T).Name;
-            AppendNewComponent(component, name, data);
         }
 
         public T GetComponent<T>()
@@ -77,7 +66,7 @@ namespace PotatoMilk
                 throw new Exception("The object already has the component \"" + name + "\"");
             namedComponents.Add(name, component);
             components.Add(component);
-            component.Initialize(this, data);
+            component.Initialize(this, data, name);
 
             if (component is Transform transform)
                 Transform = transform;

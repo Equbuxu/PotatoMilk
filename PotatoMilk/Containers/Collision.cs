@@ -1,11 +1,10 @@
 ﻿using PotatoMilk.Components;
-using PotatoMilk.Containers;
 using PotatoMilk.Helpers;
 using SFML.System;
 using System;
 using System.Collections.Generic;
 
-namespace PotatoMilk
+namespace PotatoMilk.Containers
 {
     public struct Collision
     {

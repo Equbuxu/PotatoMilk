@@ -6,9 +6,11 @@ using System.Collections.Generic;
 
 namespace PotatoMilk.Components
 {
+    [ComponentName("ellipse_collider")]
     public class EllipseCollider : IComponent, ICollider
     {
         public GameObject GameObject { get; private set; }
+        public string TypeName { get; private set; }
         private Transform transform;
         public Vector2f Position => transform.Position;
 
@@ -52,10 +54,11 @@ namespace PotatoMilk.Components
             return onEllipse + transform.Position;
         }
 
-        public void Initialize(GameObject container, Dictionary<string, object> data)
+        public void Initialize(GameObject container, Dictionary<string, object> data, string typeName)
         {
             if (GameObject != null)
                 throw new Exception("Already initialized");
+            TypeName = typeName;
             transform = ComponentHelper.TryGetComponent<Transform>(container);
             GameObject = container;
 

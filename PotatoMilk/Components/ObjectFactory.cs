@@ -26,21 +26,12 @@ namespace PotatoMilk.Components
             foreach (var keyvalue in recipe.componentData)
             {
                 var data = keyvalue.Value;
-                switch (keyvalue.Key)
-                {
-                    case "ellipse_collider": obj.AddComponentNoTracking<EllipseCollider>(data); break;
-                    case "convex_polygon_collider": obj.AddComponentNoTracking<ConvexPolygonCollider>(data); break;
-                    case "polygon_renderer": obj.AddComponentNoTracking<PolygonRenderer>(data); break;
-                    case "quad_renderer": obj.AddComponentNoTracking<QuadRenderer>(data); break;
-                    case "camera": obj.AddComponentNoTracking<Camera>(data); break;
-                    case "transform": obj.AddComponentNoTracking<Transform>(data); break;
-                    default: AddObjectBehaviour(obj, data, keyvalue.Key); break;
-                };
+                AddComponentToObject(obj, data, keyvalue.Key);
             }
             return obj;
         }
 
-        private void AddObjectBehaviour(GameObject obj, Dictionary<string, object> data, string name)
+        private void AddComponentToObject(GameObject obj, Dictionary<string, object> data, string name)
         {
             if (!typesCache.ContainsKey(name))
                 throw new Exception("Unknown component type: " + name);
@@ -51,13 +42,20 @@ namespace PotatoMilk.Components
 
         private Dictionary<string, Type> CollectCustomTypes()
         {
-            return (
-                   from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                   from type in assembly.GetTypes()
-                   where type.IsSubclassOf(typeof(ObjectBehavior))
-                   let attributes = type.GetCustomAttributes(typeof(ComponentNameAttribute), true)
-                   where attributes != null && attributes.Length > 0
-                   select (((ComponentNameAttribute)attributes.First()).GetName(), type)).ToDictionary(data => data.Item1, data => data.Item2);
+            try
+            {
+                return (
+                       from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                       from type in assembly.GetTypes()
+                       where type.IsAssignableTo(typeof(IComponent))
+                       let attributes = type.GetCustomAttributes(typeof(ComponentNameAttribute), true)
+                       where attributes != null && attributes.Length > 0
+                       select (((ComponentNameAttribute)attributes.First()).GetName(), type)).ToDictionary(data => data.Item1, data => data.Item2);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error while collecting types, there might be a name conflict among components", e);
+            }
         }
     }
 }
