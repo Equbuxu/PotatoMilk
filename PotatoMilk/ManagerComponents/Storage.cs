@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace PotatoMilk.ManagerComponents
@@ -19,8 +20,8 @@ namespace PotatoMilk.ManagerComponents
             this.rooms = rooms;
         }
 
-        public Texture GetTexture(string name) => textures.ContainsKey(name) ? textures[name] : null;
-        public ObjectRecipe GetObjectRecipe(string name) => recipes.ContainsKey(name) ? recipes[name] : null;
-        public List<ObjectRecipe> GetRoom(string name) => rooms.ContainsKey(name) ? rooms[name] : null;
+        public Texture GetTexture(string name) => textures.ContainsKey(name) ? textures[name] : throw new Exception($"No texture with name {name}");
+        public ObjectRecipe GetObjectRecipe(string name) => recipes.ContainsKey(name) ? recipes[name] : throw new Exception($"No recipe with name {name}");
+        public List<ObjectRecipe> GetRoom(string name) => rooms.ContainsKey(name) ? rooms[name] : throw new Exception($"No room with name {name}");
     }
 }

@@ -2,7 +2,9 @@
 using PotatoMilk.Helpers;
 using PotatoMilk.ManagerComponents;
 using SFML.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("PotatoMilkTests")]
@@ -48,6 +50,14 @@ namespace PotatoMilk
             GameObject obj = objectFactory.CreateObject(recipe, this);
             toTrack.Add(obj);
             return obj;
+        }
+
+        public GameObject GetObjectByName(string name)
+        {
+            var objects = allObjects.Where(a => a.Name == name);
+            if (!objects.Any())
+                throw new Exception($"No object with name {name}");
+            return objects.First();
         }
 
         public void TrackComponent(IComponent component)

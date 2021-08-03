@@ -28,6 +28,7 @@ namespace PotatoMilkDemo
             manager.LoadStorage(texturesZip, texturesJson, recipesJson, roomsJson);
             manager.LoadRoom(manager.Storage.GetRoom("room1"));
 
+            manager.Update(window);
             while (window.IsOpen)
             {
                 manager.Update(window);
