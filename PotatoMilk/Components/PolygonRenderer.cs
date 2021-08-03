@@ -48,7 +48,7 @@ namespace PotatoMilk.Components
                 throw new Exception("Already initialized");
             TypeName = typeName;
 
-            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(PolygonRenderer));
             GameObject = container;
             transform.StateUpdated += TriangulateVertices;
 

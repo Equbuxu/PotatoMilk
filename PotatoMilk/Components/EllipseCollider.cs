@@ -59,7 +59,7 @@ namespace PotatoMilk.Components
             if (GameObject != null)
                 throw new Exception("Already initialized");
             TypeName = typeName;
-            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(EllipseCollider));
             GameObject = container;
 
             Radii = ComponentHelper.TryGetDataValue(data, "radii", new Vector2f(32f, 32f));

@@ -54,7 +54,7 @@ namespace PotatoMilk.Components
             if (GameObject != null)
                 throw new Exception("Already initialized");
             TypeName = typeName;
-            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(Camera));
             GameObject = container;
 
             WorldViewportSize = ComponentHelper.TryGetDataValue<Vector2f>(data, "world_viewport_size", new());

@@ -76,7 +76,7 @@ namespace PotatoMilk.Components
             if (GameObject != null)
                 throw new Exception("Already initialized");
             TypeName = typeName;
-            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(QuadRenderer));
             GameObject = container;
             transform.StateUpdated += (sender, args) =>
             {

@@ -67,7 +67,7 @@ namespace PotatoMilk.Components
             if (GameObject != null)
                 throw new Exception("Already initialized");
             TypeName = typeName;
-            transform = ComponentHelper.TryGetComponent<Transform>(container);
+            transform = ComponentHelper.TryGetComponent<Transform>(container, nameof(ConvexPolygonCollider));
             Vertices = ComponentHelper.TryGetDataValue(data, "vertices", new List<Vector2f>() { new Vector2f() });
             Enabled = ComponentHelper.TryGetDataValue(data, "enabled", true);
             MouseHitEnabled = ComponentHelper.TryGetDataValue(data, "mouse_hit_enabled", false);

@@ -1,13 +1,12 @@
 ﻿using PotatoMilk.Components;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace PotatoMilk.Helpers
 {
     public static class ComponentHelper
     {
-        public static T TryGetComponent<T>(GameObject container, [CallerMemberName] string callerName = "Unknown component")
+        public static T TryGetComponent<T>(GameObject container, string callerName)
             where T : IComponent
         {
             try
