@@ -105,7 +105,7 @@
     "polygon_renderer": {
       "color": {
         "type": "Color",
-        "value": [ 0, 0, 1 ]
+        "value": "#00F8"
       },
       "vertices": {
         "type": "List<Vector2f>",
@@ -149,7 +149,7 @@
     "polygon_renderer": {
       "color": {
         "type": "Color",
-        "value": [ 1, 0, 1 ]
+        "value": [ 1, 0, 1, 0.5 ]
       },
       "vertices": {
         "type": "List<Vector2f>",

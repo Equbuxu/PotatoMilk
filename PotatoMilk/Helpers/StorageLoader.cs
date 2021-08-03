@@ -1,6 +1,5 @@
 ﻿using SFML.Graphics;
 using SFML.System;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -130,15 +129,21 @@ namespace PotatoMilk.Helpers
 
         private static Color ConvertColor(JsonElement elem)
         {
+            if (elem.ValueKind == JsonValueKind.String)
+                return ColorHelper.FromString(elem.GetString());
             var enumerator = elem.EnumerateArray();
             enumerator.MoveNext();
-            Func<double, byte> conv = (double a) => (byte)(Math.Clamp(a, 0, 1) * 255);
-            var r = conv(enumerator.Current.GetDouble());
+            var r = (float)enumerator.Current.GetDouble();
             enumerator.MoveNext();
-            var g = conv((float)enumerator.Current.GetDouble());
+            var g = (float)enumerator.Current.GetDouble();
             enumerator.MoveNext();
-            var b = conv((float)enumerator.Current.GetDouble());
-            return new Color(r, g, b);
+            var b = (float)enumerator.Current.GetDouble();
+            if (enumerator.MoveNext())
+            {
+                var a = (float)enumerator.Current.GetDouble();
+                return ColorHelper.FromFloats(r, g, b, a);
+            }
+            return ColorHelper.FromFloats(r, g, b);
         }
 
         private static List<Vector2f> ConvertListVector2f(JsonElement elem)
